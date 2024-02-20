@@ -1,7 +1,12 @@
+#include <Yortek/Core/Application.h>
 #include <iostream>
 
 int main()
 {
-  std::cout << "Hello World!" << std::endl;
+  using namespace Yortek;
+
+  Application::start({ ApplicationBackend::OpenGL });
+  Application::run();
+  Application::stop();
   return 0;
 }
