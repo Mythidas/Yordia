@@ -82,6 +82,7 @@ namespace Yortek::Rendering
 
 		s_render_commands = RenderCommands::Builder().build();
 		RenderCommands::enable_depth_testing(true);
+		RenderCommands::enable_blending(true);
 	}
 
 	void Renderer2D::_destruct()

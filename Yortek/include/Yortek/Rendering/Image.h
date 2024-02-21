@@ -41,7 +41,6 @@ namespace Yortek::Rendering
 	public:
 		struct Builder : Tools::BuilderHelper<Builder>
 		{
-			uint32_t binding{ 0 };
 			ImageType type{ ImageType::e2D };
 			ImageFormat format{ ImageFormat::RGBA8 };
 			ImageWrap wrap{ ImageWrap::Repeat };
@@ -49,7 +48,6 @@ namespace Yortek::Rendering
 			IVector3 size{ 1, 1, 1 };
 			bool flipped{ false };
 
-			Builder& set_binding(uint32_t _binding) { return _set_prop(binding, _binding); }
 			Builder& set_type(ImageType _type) { return _set_prop(type, _type); }
 			Builder& set_format(ImageFormat _format) { return _set_prop(format, _format); }
 			Builder& set_wrap(ImageWrap _wrap) { return _set_prop(wrap, _wrap); }

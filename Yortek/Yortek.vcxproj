@@ -154,7 +154,9 @@
     <ClInclude Include="include\Yortek\Core\Defines.h" />
     <ClInclude Include="include\Yortek\Core\Environment.h" />
     <ClInclude Include="include\Yortek\Core\Event.h" />
+    <ClInclude Include="include\Yortek\Core\Input.h" />
     <ClInclude Include="include\Yortek\Core\KeyCodes.h" />
+    <ClInclude Include="include\Yortek\Core\Time.h" />
     <ClInclude Include="include\Yortek\Core\Window.h" />
     <ClInclude Include="include\Yortek\Debug\Log.h" />
     <ClInclude Include="include\Yortek\Math\Bit.h" />
@@ -188,6 +190,8 @@
     <ClCompile Include="src\Platform\Windows\WND_Window.cpp" />
     <ClCompile Include="src\Yortek.cpp" />
     <ClCompile Include="src\Yortek\Core\Application.cpp" />
+    <ClCompile Include="src\Yortek\Core\Input.cpp" />
+    <ClCompile Include="src\Yortek\Core\Time.cpp" />
     <ClCompile Include="src\Yortek\Core\Window.cpp" />
     <ClCompile Include="src\Yortek\Debug\Log.cpp" />
     <ClCompile Include="src\Yortek\Math\Transform.cpp" />

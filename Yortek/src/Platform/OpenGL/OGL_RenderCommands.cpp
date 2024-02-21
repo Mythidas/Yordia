@@ -10,6 +10,19 @@ namespace Yortek::Rendering::OGL
     else glDisable(GL_DEPTH_TEST);
   }
 
+  void OGL::OGL_RenderCommands::_enable_blending_impl(bool enable)
+  {
+    if (enable)
+    {
+      glEnable(GL_BLEND);
+      glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    }
+    else
+    {
+      glDisable(GL_BLEND);
+    }
+  }
+
   void OGL_RenderCommands::_clear_color_impl(float r, float g, float b)
   {
     glClearColor(r, g, b, 1.0f);

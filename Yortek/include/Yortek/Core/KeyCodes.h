@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Yor
+namespace Yortek
 {
 	typedef unsigned short _Key;
 

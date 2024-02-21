@@ -177,6 +177,8 @@
     <ClInclude Include="include\Yortek\Tools\Singleton.h">
       <Filter>include\Yortek\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="include\Yortek\Core\Input.h" />
+    <ClInclude Include="include\Yortek\Core\Time.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OGL_Framebuffer.cpp">
@@ -242,5 +244,7 @@
     <ClCompile Include="src\Yortek\Tools\Path.cpp">
       <Filter>src\Yortek\Tools</Filter>
     </ClCompile>
+    <ClCompile Include="src\Yortek\Core\Input.cpp" />
+    <ClCompile Include="src\Yortek\Core\Time.cpp" />
   </ItemGroup>
 </Project>

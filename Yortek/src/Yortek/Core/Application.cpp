@@ -1,5 +1,6 @@
 #include "Yortek/Core/Application.h"
 #include "Yortek/Core/Environment.h"
+#include "Yortek/Core/Time.h"
 #include "Yortek/Rendering/Renderer2D.h"
 
 #include <stdexcept>
@@ -37,6 +38,7 @@ namespace Yortek
 
     while (s_running)
     {
+      Time::_tick();
       s_window->update();
       ev_OnUpdate.dispatch();
     }

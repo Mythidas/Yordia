@@ -123,7 +123,6 @@ namespace Yortek::Rendering::OGL
 
 	void OGL_Image::bind(uint32_t slot) const
 	{
-		glBindTexture(Utils::TypeToGL(m_builder.type), m_render_id);
 		glBindTextureUnit(slot, m_render_id);
 	}
 
