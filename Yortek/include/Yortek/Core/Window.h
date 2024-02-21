@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Yortek/Core/Defines.h"
-#include "Yortek/Tools/Event.h"
+#include "Yortek/Core/Event.h"
 #include "Yortek/Tools/BuilderHelper.h"
 
 #include <string>
@@ -18,16 +18,16 @@ namespace Yortek
   class Window
   {
   public:
-    Event<> OnWindowClose; // No arguments
-    Event<int, int> OnWindowResize; // Width, Height
-    Event<int> OnKeyPressed; // Key
-    Event<int> OnKeyReleased; // Key
-    Event<double, double> OnMouseMoved; // Mouse X, Mouse Y
-    Event<float> OnMouseScrolled; // Direction
-    Event<int> OnMouseButtonPressed; // Button
-    Event<int> OnMouseButtonReleased; // Button
+    Event<>               ev_OnWindowClose; // No arguments
+    Event<int, int>       ev_OnWindowResize; // Width, Height
+    Event<int>            ev_OnKeyPressed; // Key
+    Event<int>            ev_OnKeyReleased; // Key
+    Event<float, float>   ev_OnMouseMoved; // Mouse X, Mouse Y
+    Event<float>          ev_OnMouseScrolled; // Direction
+    Event<int>            ev_OnMouseButtonPressed; // Button
+    Event<int>            ev_OnMouseButtonReleased; // Button
 
-    struct Builder : public BuilderHelper<Builder>
+    struct Builder : public Tools::BuilderHelper<Builder>
     {
       std::string title{ "AxtonEngine" };
       uint32_t width{ 1280 };

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Yortek/Graphics/GraphicsContext.h"
+#include "Yortek/Rendering/GraphicsContext.h"
 
-namespace Yortek::None
+namespace Yortek::Rendering::None
 {
   class N_GraphicsContext : public GraphicsContext
   {

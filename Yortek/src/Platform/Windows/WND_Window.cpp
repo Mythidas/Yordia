@@ -5,6 +5,7 @@
 namespace Yortek::WND
 {
   WND_Window::WND_Window(const Builder& builder)
+		: m_window(nullptr)
   {
 		if (int glfw = glfwInit(); !glfw)
 		{
@@ -19,7 +20,7 @@ namespace Yortek::WND
 		}
 
 		glfwMakeContextCurrent(m_window);
-		m_graphics_context = GraphicsContext::Builder()
+		m_graphics_context = Rendering::GraphicsContext::Builder()
 			.set_window_handle(m_window)
 			.build();
 
@@ -39,7 +40,7 @@ namespace Yortek::WND
 		glfwSetWindowCloseCallback(m_window, [](GLFWwindow* window)
 			{
 				WND_Window* wWindow = ((WND_Window*)glfwGetWindowUserPointer(window));
-				wWindow->OnWindowClose.dispatch();
+				wWindow->ev_OnWindowClose.dispatch();
 			});
 
 		glfwSetWindowSizeCallback(m_window, [](GLFWwindow* window, int width, int height)
@@ -48,28 +49,28 @@ namespace Yortek::WND
 				wWindow->m_builder.width = width;
 				wWindow->m_builder.height = height;
 
-				wWindow->OnWindowResize.dispatch(width, height);
+				wWindow->ev_OnWindowResize.dispatch(width, height);
 			});
 
 		glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 			{
 				WND_Window* wWindow = ((WND_Window*)glfwGetWindowUserPointer(window));
 				if (action == GLFW_PRESS)
-					wWindow->OnKeyPressed.dispatch(key);
+					wWindow->ev_OnKeyPressed.dispatch(key);
 				else if (action == GLFW_RELEASE)
-					wWindow->OnKeyReleased.dispatch(key);
+					wWindow->ev_OnKeyReleased.dispatch(key);
 			});
 
 		glfwSetCursorPosCallback(m_window, [](GLFWwindow* window, double xpos, double ypos)
 			{
 				WND_Window* wWindow = ((WND_Window*)glfwGetWindowUserPointer(window));
-				wWindow->OnMouseMoved.dispatch(xpos, ypos);
+				wWindow->ev_OnMouseMoved.dispatch(static_cast<float>(xpos), static_cast<float>(ypos));
 			});
 
 		glfwSetScrollCallback(m_window, [](GLFWwindow* window, double xoffset, double yoffset)
 			{
 				WND_Window* wWindow = ((WND_Window*)glfwGetWindowUserPointer(window));
-				wWindow->OnMouseScrolled.dispatch((float)yoffset);
+				wWindow->ev_OnMouseScrolled.dispatch((float)yoffset);
 			});
 
 		glfwSetMouseButtonCallback(m_window, [](GLFWwindow* window, int button, int action, int mods)
@@ -77,10 +78,10 @@ namespace Yortek::WND
 				WND_Window* wWindow = ((WND_Window*)glfwGetWindowUserPointer(window));
 				if (action == GLFW_PRESS)
 				{
-					wWindow->OnMouseButtonPressed.dispatch(button);
+					wWindow->ev_OnMouseButtonPressed.dispatch(button);
 				}
 				else if (action == GLFW_RELEASE)
-					wWindow->OnMouseButtonReleased.dispatch(button);
+					wWindow->ev_OnMouseButtonReleased.dispatch(button);
 			});
 
 		//Log::info("Window Created!");

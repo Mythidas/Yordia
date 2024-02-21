@@ -1,9 +1,9 @@
-#include "Yortek/Graphics/GraphicsContext.h"
+#include "Yortek/Rendering/GraphicsContext.h"
 #include "Yortek/Core/Application.h"
 #include "Platform/None/N_GraphicsContext.h"
 #include "Platform/OpenGL/OGL_GraphicsContext.h"
 
-namespace Yortek
+namespace Yortek::Rendering
 {
   Unique<GraphicsContext> GraphicsContext::Builder::build() const
   {

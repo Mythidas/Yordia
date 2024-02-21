@@ -17,13 +17,19 @@
     <ClInclude Include="include\Yortek\Tools\Singleton.h" />
     <ClInclude Include="include\Yortek\Core\KeyCodes.h" />
     <ClInclude Include="include\Yortek\Core\Window.h" />
-    <ClInclude Include="include\Yortek\Tools\Event.h" />
+    <ClInclude Include="include\Yortek\Core\Event.h" />
     <ClInclude Include="include\Platform\Windows\WND_Window.h" />
-    <ClInclude Include="include\Yortek\Graphics\GraphicsContext.h" />
+    <ClInclude Include="include\Yortek\Rendering\GraphicsContext.h" />
     <ClInclude Include="include\Platform\OpenGL\OGL_GraphicsContext.h" />
     <ClInclude Include="include\Yortek\Tools\BuilderHelper.h" />
     <ClInclude Include="include\Platform\None\N_GraphicsContext.h" />
     <ClInclude Include="include\Platform\None\N_Window.h" />
+    <ClInclude Include="include\Yortek\Scene\Object.h" />
+    <ClInclude Include="include\Yortek\Scene\Component.h" />
+    <ClInclude Include="include\Yortek\Scene\Scene.h" />
+    <ClInclude Include="include\Yortek\Scene\ObjectRegistry.h" />
+    <ClInclude Include="include\Yortek\Scene\ComponentPool.h" />
+    <ClInclude Include="include\Yortek\Rendering\Renderer2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Yortek.cpp">
@@ -32,7 +38,7 @@
     <ClCompile Include="src\Yortek\Core\Application.cpp" />
     <ClCompile Include="src\Yortek\Core\Window.cpp" />
     <ClCompile Include="src\Platform\Windows\WND_Window.cpp" />
-    <ClCompile Include="src\Yortek\Graphics\GraphicsContext.cpp" />
+    <ClCompile Include="src\Yortek\Rendering\GraphicsContext.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OGL_GraphicsContext.cpp" />
   </ItemGroup>
 </Project>

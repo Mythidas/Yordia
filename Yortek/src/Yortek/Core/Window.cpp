@@ -12,5 +12,8 @@ namespace Yortek
     case ApplicationBackend::None: return CreateUnique<None::N_Window>(*this);
     case ApplicationBackend::OpenGL: return CreateUnique<WND::WND_Window>(*this);
     }
+
+    // TODO: Log error
+    return nullptr;
   }
 }

@@ -3,12 +3,12 @@
 #include "Yortek/Core/Defines.h"
 #include "Yortek/Tools/BuilderHelper.h"
 
-namespace Yortek
+namespace Yortek::Rendering
 {
   class GraphicsContext
   {
   public:
-    struct Builder : public BuilderHelper<Builder>
+    struct Builder : public Tools::BuilderHelper<Builder>
     {
       void* window_handle{ nullptr };
 

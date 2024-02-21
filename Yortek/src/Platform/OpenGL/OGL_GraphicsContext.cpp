@@ -3,7 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
-namespace Yortek::OGL
+namespace Yortek::Rendering::OGL
 {
   OGL_GraphicsContext::OGL_GraphicsContext(const Builder& builder)
     : m_builder(builder)

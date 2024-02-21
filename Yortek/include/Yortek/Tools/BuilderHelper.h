@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Yortek
+namespace Yortek::Tools
 {
   template <typename B>
   class BuilderHelper

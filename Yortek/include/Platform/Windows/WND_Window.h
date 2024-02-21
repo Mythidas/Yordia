@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Yortek/Core/Window.h"
-#include "Yortek/Graphics/GraphicsContext.h"
+#include "Yortek/Rendering/GraphicsContext.h"
 
 struct GLFWwindow;
 
@@ -26,6 +26,6 @@ namespace Yortek::WND
   private:
     Builder m_builder;
     GLFWwindow* m_window;
-    Unique<GraphicsContext> m_graphics_context;
+    Unique<Rendering::GraphicsContext> m_graphics_context;
   };
 }

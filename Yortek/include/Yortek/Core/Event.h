@@ -10,15 +10,14 @@ namespace Yortek
 	class Event
 	{
 	private:
-		typedef bool(*Func)(Args...);
+		typedef void(*Func)(Args...);
 
 	public:
 		void dispatch(Args... args)
 		{
 			for (auto callback : m_callbacks)
 			{
-				if (callback(args...))
-					return;
+				callback(args...);
 			}
 			
 			for (auto it = m_listeners.begin(); it != m_listeners.end(); ++it)

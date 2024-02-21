@@ -4,6 +4,8 @@
 
 namespace Yortek
 {
+  Event<> Application::ev_OnUpdate;
+
   Application::Specs Application::s_specs;
   bool Application::s_running{ false };
   Unique<Window> Application::s_window{ nullptr };
@@ -18,8 +20,8 @@ namespace Yortek
     s_specs = specs;
     s_instance = new Application();
 
-    s_window = Window::Builder().build();
-    s_window->OnWindowClose += _on_close;
+    s_window = specs.window.build();
+    s_window->ev_OnWindowClose += _on_close;
   }
 
   void Application::run()
@@ -29,18 +31,18 @@ namespace Yortek
     while (s_running)
     {
       s_window->update();
+      ev_OnUpdate.dispatch();
     }
   }
 
   void Application::stop()
   {
-    s_window->OnWindowClose -= _on_close;
+    s_window->ev_OnWindowClose -= _on_close;
     delete s_instance;
   }
 
-  bool Application::_on_close()
+  void Application::_on_close()
   {
     s_running = false;
-    return false;
   }
 }
