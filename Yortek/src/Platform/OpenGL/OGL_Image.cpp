@@ -145,7 +145,7 @@ namespace Yortek::Rendering::OGL
 	{
 		int nrChannels, width, height;
 		stbi_set_flip_vertically_on_load(m_builder.flipped);
-		unsigned char* data = stbi_load(path.toString().c_str(), &width, &height, &nrChannels, 0);
+		unsigned char* data = stbi_load(path.to_string().c_str(), &width, &height, &nrChannels, 0);
 		
 		glBindTexture(Utils::TypeToGL(m_builder.type), m_render_id);
 		Utils::SetGLImage(m_builder.set_size({ width, height, 1 }));

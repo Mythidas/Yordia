@@ -79,8 +79,8 @@ namespace Yortek::Rendering::OGL
 	OGL_Shader::OGL_Shader(const Builder& builder)
 		: m_builder(builder), m_render_id(0), m_vertex_id(0)
 	{
-		std::string vertSrc = Path(builder.vert_path).readToString();
-		std::string fragSrc = Path(builder.frag_path).readToString();
+		std::string vertSrc = Tools::Path(builder.vert_path).read_to_string();
+		std::string fragSrc = Tools::Path(builder.frag_path).read_to_string();
 
 		const char* vertCode = vertSrc.c_str();
 		const char* fragCode = fragSrc.c_str();

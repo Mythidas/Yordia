@@ -39,8 +39,12 @@ namespace Yortek::Tools
   template<typename T, bool managed>
   inline T& Singleton<T, managed>::instance()
   {
-    if (managed && !s_instance)
-      s_instance = new T();
+    if constexpr (managed)
+    {
+      if (!s_instance)
+        s_instance = new T();
+    }
+
     return *s_instance;
   }
 }

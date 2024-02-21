@@ -5,12 +5,13 @@
 
 namespace Yortek::Rendering
 {
-  Camera::Camera()
+  Camera::Camera(int width, int height)
   {
-    IVector2 size(Application::get_window()->get_width(), Application::get_window()->get_height());
     m_framebuffer = Framebuffer::Builder()
-      .set_size(size)
+      .set_size({ width, height })
       .build();
+
+    resize(width, height);
   }
 
   void Camera::resize(int width, int height)

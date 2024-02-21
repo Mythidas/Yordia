@@ -7,6 +7,7 @@
 #include "Yortek/Rendering/RenderData.h"
 #include "Yortek/Rendering/Camera.h"
 #include "Yortek/Rendering/Color.h"
+#include "Yortek/Rendering/RenderCommands.h"
 
 namespace Yortek::Rendering
 {
@@ -15,7 +16,7 @@ namespace Yortek::Rendering
 	class Renderer2D
 	{
 	public:
-		static void begin_frame(const Camera& camera, const Transform& transform);
+		static void begin_frame(Camera& camera, const Transform& transform);
 		static void end_frame();
 
 		static void draw_quad(const Vector3& position, const Vector3& rotation, const Vector3& scale, const Color& color);
@@ -32,9 +33,11 @@ namespace Yortek::Rendering
 		static void _begin_batch();
 		static void _end_batch();
 		static float _get_texture_index(Shared<Image> texture);
+		static bool _validate_api();
 
 
 	private:
 		static RenderData s_quad_data;
+		static Unique<RenderCommands> s_render_commands;
 	};
 }

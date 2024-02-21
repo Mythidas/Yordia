@@ -7,7 +7,7 @@
 
 namespace Yortek::Rendering
 {
-  class RenderCommands : public Tools::Singleton<RenderCommands, true>
+  class RenderCommands : public Tools::Singleton<RenderCommands>
   {
   public:
     struct Builder

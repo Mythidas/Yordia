@@ -25,6 +25,9 @@
     <Filter Include="include\Yortek\Debug">
       <UniqueIdentifier>{CCF34CF7-B882-D6C0-61A1-EABB4D0FE766}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\Yortek\Math">
+      <UniqueIdentifier>{6F7B1E74-DBDC-FB81-644A-4234D0AA3241}</UniqueIdentifier>
+    </Filter>
     <Filter Include="include\Yortek\Rendering">
       <UniqueIdentifier>{A36DF7CB-8F92-464C-B8DD-2BDCA461456A}</UniqueIdentifier>
     </Filter>
@@ -52,8 +55,14 @@
     <Filter Include="src\Yortek\Debug">
       <UniqueIdentifier>{F0B9E3AD-DCB2-0200-05E5-E784F13CE20B}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Yortek\Math">
+      <UniqueIdentifier>{130D236A-7F98-902E-88A9-1323F4B3EC2E}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Yortek\Rendering">
       <UniqueIdentifier>{C7A50CDF-B334-96A8-5C53-AAA348C1A64E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Yortek\Tools">
+      <UniqueIdentifier>{FAF30AAF-E6EC-2901-0F1F-0F86FB76090D}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -63,7 +72,22 @@
     <ClInclude Include="include\Platform\None\N_Window.h">
       <Filter>include\Platform\None</Filter>
     </ClInclude>
+    <ClInclude Include="include\Platform\OpenGL\OGL_Framebuffer.h">
+      <Filter>include\Platform\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="include\Platform\OpenGL\OGL_GraphicsContext.h">
+      <Filter>include\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Platform\OpenGL\OGL_Image.h">
+      <Filter>include\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Platform\OpenGL\OGL_RenderBuffer.h">
+      <Filter>include\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Platform\OpenGL\OGL_RenderCommands.h">
+      <Filter>include\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Platform\OpenGL\OGL_Shader.h">
       <Filter>include\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="include\Platform\Windows\WND_Window.h">
@@ -78,6 +102,9 @@
     <ClInclude Include="include\Yortek\Core\Defines.h">
       <Filter>include\Yortek\Core</Filter>
     </ClInclude>
+    <ClInclude Include="include\Yortek\Core\Environment.h">
+      <Filter>include\Yortek\Core</Filter>
+    </ClInclude>
     <ClInclude Include="include\Yortek\Core\Event.h">
       <Filter>include\Yortek\Core</Filter>
     </ClInclude>
@@ -90,13 +117,61 @@
     <ClInclude Include="include\Yortek\Debug\Log.h">
       <Filter>include\Yortek\Debug</Filter>
     </ClInclude>
+    <ClInclude Include="include\Yortek\Math\Bit.h">
+      <Filter>include\Yortek\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Yortek\Math\Matrix4.h">
+      <Filter>include\Yortek\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Yortek\Math\Transform.h">
+      <Filter>include\Yortek\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Yortek\Math\Vector2.h">
+      <Filter>include\Yortek\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Yortek\Math\Vector3.h">
+      <Filter>include\Yortek\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Yortek\Math\Vector4.h">
+      <Filter>include\Yortek\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Yortek\Math\include.h">
+      <Filter>include\Yortek\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Yortek\Rendering\Camera.h">
+      <Filter>include\Yortek\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Yortek\Rendering\Color.h">
+      <Filter>include\Yortek\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Yortek\Rendering\Framebuffer.h">
+      <Filter>include\Yortek\Rendering</Filter>
+    </ClInclude>
     <ClInclude Include="include\Yortek\Rendering\GraphicsContext.h">
+      <Filter>include\Yortek\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Yortek\Rendering\Image.h">
+      <Filter>include\Yortek\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Yortek\Rendering\RenderBuffer.h">
+      <Filter>include\Yortek\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Yortek\Rendering\RenderCommands.h">
+      <Filter>include\Yortek\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Yortek\Rendering\RenderData.h">
       <Filter>include\Yortek\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="include\Yortek\Rendering\Renderer2D.h">
       <Filter>include\Yortek\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="include\Yortek\Rendering\Shader.h">
+      <Filter>include\Yortek\Rendering</Filter>
+    </ClInclude>
     <ClInclude Include="include\Yortek\Tools\BuilderHelper.h">
+      <Filter>include\Yortek\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Yortek\Tools\Path.h">
       <Filter>include\Yortek\Tools</Filter>
     </ClInclude>
     <ClInclude Include="include\Yortek\Tools\Singleton.h">
@@ -104,7 +179,22 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\OpenGL\OGL_Framebuffer.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OGL_GraphicsContext.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OGL_Image.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OGL_RenderBuffer.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OGL_RenderCommands.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OGL_Shader.cpp">
       <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\WND_Window.cpp">
@@ -122,8 +212,35 @@
     <ClCompile Include="src\Yortek\Debug\Log.cpp">
       <Filter>src\Yortek\Debug</Filter>
     </ClCompile>
+    <ClCompile Include="src\Yortek\Math\Transform.cpp">
+      <Filter>src\Yortek\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Yortek\Rendering\Camera.cpp">
+      <Filter>src\Yortek\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Yortek\Rendering\Framebuffer.cpp">
+      <Filter>src\Yortek\Rendering</Filter>
+    </ClCompile>
     <ClCompile Include="src\Yortek\Rendering\GraphicsContext.cpp">
       <Filter>src\Yortek\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Yortek\Rendering\Image.cpp">
+      <Filter>src\Yortek\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Yortek\Rendering\RenderBuffer.cpp">
+      <Filter>src\Yortek\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Yortek\Rendering\RenderCommands.cpp">
+      <Filter>src\Yortek\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Yortek\Rendering\Renderer2D.cpp">
+      <Filter>src\Yortek\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Yortek\Rendering\Shader.cpp">
+      <Filter>src\Yortek\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Yortek\Tools\Path.cpp">
+      <Filter>src\Yortek\Tools</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

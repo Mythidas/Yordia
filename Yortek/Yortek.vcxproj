@@ -142,28 +142,64 @@
   <ItemGroup>
     <ClInclude Include="include\Platform\None\N_GraphicsContext.h" />
     <ClInclude Include="include\Platform\None\N_Window.h" />
+    <ClInclude Include="include\Platform\OpenGL\OGL_Framebuffer.h" />
     <ClInclude Include="include\Platform\OpenGL\OGL_GraphicsContext.h" />
+    <ClInclude Include="include\Platform\OpenGL\OGL_Image.h" />
+    <ClInclude Include="include\Platform\OpenGL\OGL_RenderBuffer.h" />
+    <ClInclude Include="include\Platform\OpenGL\OGL_RenderCommands.h" />
+    <ClInclude Include="include\Platform\OpenGL\OGL_Shader.h" />
     <ClInclude Include="include\Platform\Windows\WND_Window.h" />
     <ClInclude Include="include\Yortek.h" />
     <ClInclude Include="include\Yortek\Core\Application.h" />
     <ClInclude Include="include\Yortek\Core\Defines.h" />
+    <ClInclude Include="include\Yortek\Core\Environment.h" />
     <ClInclude Include="include\Yortek\Core\Event.h" />
     <ClInclude Include="include\Yortek\Core\KeyCodes.h" />
     <ClInclude Include="include\Yortek\Core\Window.h" />
     <ClInclude Include="include\Yortek\Debug\Log.h" />
+    <ClInclude Include="include\Yortek\Math\Bit.h" />
+    <ClInclude Include="include\Yortek\Math\Matrix4.h" />
+    <ClInclude Include="include\Yortek\Math\Transform.h" />
+    <ClInclude Include="include\Yortek\Math\Vector2.h" />
+    <ClInclude Include="include\Yortek\Math\Vector3.h" />
+    <ClInclude Include="include\Yortek\Math\Vector4.h" />
+    <ClInclude Include="include\Yortek\Math\include.h" />
+    <ClInclude Include="include\Yortek\Rendering\Camera.h" />
+    <ClInclude Include="include\Yortek\Rendering\Color.h" />
+    <ClInclude Include="include\Yortek\Rendering\Framebuffer.h" />
     <ClInclude Include="include\Yortek\Rendering\GraphicsContext.h" />
+    <ClInclude Include="include\Yortek\Rendering\Image.h" />
+    <ClInclude Include="include\Yortek\Rendering\RenderBuffer.h" />
+    <ClInclude Include="include\Yortek\Rendering\RenderCommands.h" />
+    <ClInclude Include="include\Yortek\Rendering\RenderData.h" />
     <ClInclude Include="include\Yortek\Rendering\Renderer2D.h" />
+    <ClInclude Include="include\Yortek\Rendering\Shader.h" />
     <ClInclude Include="include\Yortek\Tools\BuilderHelper.h" />
+    <ClInclude Include="include\Yortek\Tools\Path.h" />
     <ClInclude Include="include\Yortek\Tools\Singleton.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\OpenGL\OGL_Framebuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OGL_GraphicsContext.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OGL_Image.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OGL_RenderBuffer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OGL_RenderCommands.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OGL_Shader.cpp" />
     <ClCompile Include="src\Platform\Windows\WND_Window.cpp" />
     <ClCompile Include="src\Yortek.cpp" />
     <ClCompile Include="src\Yortek\Core\Application.cpp" />
     <ClCompile Include="src\Yortek\Core\Window.cpp" />
     <ClCompile Include="src\Yortek\Debug\Log.cpp" />
+    <ClCompile Include="src\Yortek\Math\Transform.cpp" />
+    <ClCompile Include="src\Yortek\Rendering\Camera.cpp" />
+    <ClCompile Include="src\Yortek\Rendering\Framebuffer.cpp" />
     <ClCompile Include="src\Yortek\Rendering\GraphicsContext.cpp" />
+    <ClCompile Include="src\Yortek\Rendering\Image.cpp" />
+    <ClCompile Include="src\Yortek\Rendering\RenderBuffer.cpp" />
+    <ClCompile Include="src\Yortek\Rendering\RenderCommands.cpp" />
+    <ClCompile Include="src\Yortek\Rendering\Renderer2D.cpp" />
+    <ClCompile Include="src\Yortek\Rendering\Shader.cpp" />
+    <ClCompile Include="src\Yortek\Tools\Path.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\vendor\GLFW\GLFW.vcxproj">

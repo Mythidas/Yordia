@@ -38,7 +38,7 @@ namespace Yortek::Rendering
 		Vector4 vertex_positions[4]{};
 		Vector2 texture_positions[4]{};
 
-		Camera camera;
+		Camera* camera;
 		struct CameraBuffer
 		{
 			glm::mat4 view{ 1.0f };

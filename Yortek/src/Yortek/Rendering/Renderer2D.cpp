@@ -1,15 +1,18 @@
 #include "Yortek/Rendering/Renderer2D.h"
+#include "Yortek/Core/Environment.h"
 #include "Yortek/Rendering/RenderCommands.h"
-#include "Yortek/Core/Application.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace Yortek::Rendering
 {
 	RenderData Renderer2D::s_quad_data;
+	Unique<RenderCommands> Renderer2D::s_render_commands;
 
 	void Renderer2D::_construct()
 	{
+		if (!_validate_api()) return;
+
 		s_quad_data.buffer = RenderBuffer::Builder()
 			.set_size(sizeof(Vertex) * RenderData::MAX_VERTICES)
 			.set_usage(BufferUsage::Vertex)
@@ -77,17 +80,22 @@ namespace Yortek::Rendering
 			.set_attributes({ VertexAttribute::Float3, VertexAttribute::Float3, VertexAttribute::Float2, VertexAttribute::Float })
 			.build();
 
+		s_render_commands = RenderCommands::Builder().build();
 		RenderCommands::enable_depth_testing(true);
 	}
 
 	void Renderer2D::_destruct()
 	{
+		if (!_validate_api()) return;
+
 		delete[] s_quad_data.staging_buffer;
 	}
 
-	void Renderer2D::begin_frame(const Camera& camera, const Transform& transform)
+	void Renderer2D::begin_frame(Camera& camera, const Transform& transform)
 	{
-		s_quad_data.camera = camera;
+		if (!_validate_api()) return;
+
+		s_quad_data.camera = &camera;
 		Transform transformCopy(transform);
 		transformCopy.position.y *= -1;
 		transformCopy.position.z *= -1;
@@ -97,7 +105,7 @@ namespace Yortek::Rendering
 		s_quad_data.camera_uniform->set_data(&s_quad_data.camera_buffer, sizeof(RenderData::CameraBuffer), 0);
 
 		RenderCommands::resize(camera.get_framebuffer()->get_size());
-		camera.get_framebuffer()->bind();
+		//camera.get_framebuffer()->bind();
 		RenderCommands::clear_color(camera.clear_color);
 
 		_begin_batch();
@@ -105,8 +113,10 @@ namespace Yortek::Rendering
 
 	void Renderer2D::end_frame()
 	{
+		if (!_validate_api()) return;
+
 		_end_batch();
-		s_quad_data.camera.get_framebuffer()->unbind();
+		//s_quad_data.camera->get_framebuffer()->unbind();
 	}
 
 	void Renderer2D::draw_quad(const Vector3& position, const Vector3& rotation, const Vector3& scale, const Color& color)
@@ -139,6 +149,8 @@ namespace Yortek::Rendering
 
 	void Renderer2D::draw_quad(const Matrix4& transform, const Color& color, Vector2 texCoords[4], float texIndex)
 	{
+		if (!_validate_api()) return;
+
 		_check_batch();
 
 		for (size_t i = 0; i < 4; i++)
@@ -202,5 +214,10 @@ namespace Yortek::Rendering
 		}
 
 		return texIndex;
+	}
+
+	bool Renderer2D::_validate_api()
+	{
+		return Yortek::Environment::get_graphics_api() != GraphicsAPI::None;
 	}
 }

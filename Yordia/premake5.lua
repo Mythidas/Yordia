@@ -26,6 +26,7 @@ project "Yordia"
     "src",
     "%{wks.location}/Yortek/include",
     "%{IncludeDir.SPD}",
+    "%{IncludeDir.GLM}",
   }
 
   links

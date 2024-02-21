@@ -3,8 +3,7 @@
 #include "Yortek/Core/Defines.h"
 #include "Yortek/Tools/BuilderHelper.h"
 #include "Yortek/Rendering/RenderBuffer.h"
-
-#include <string>
+#include "Yortek/Tools/Path.h"
 
 namespace Yortek::Rendering
 {
@@ -29,7 +28,7 @@ namespace Yortek::Rendering
 			std::vector<VertexAttribute> attributes;
 
 			Builder& set_vert_path(const Tools::Path& _path) { return _set_prop(vert_path, _path); }
-			Builder& set_frag_path(const Tools::Path& _path) { return _set_prop(vert_path, _path); }
+			Builder& set_frag_path(const Tools::Path& _path) { return _set_prop(frag_path, _path); }
 			Builder& set_vertex_buffer(const Shared<RenderBuffer>& _buffer) { return _set_prop(p_vertex_buffer, _buffer); }
 			Builder& set_index_buffer(const Shared<RenderBuffer>& _buffer) { return _set_prop(p_index_buffer, _buffer); }
 			Builder& set_render_buffers(const std::vector<Shared<RenderBuffer>>& _buffers) { return _set_prop(p_render_buffers, _buffers); }

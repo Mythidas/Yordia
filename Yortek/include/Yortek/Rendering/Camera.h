@@ -2,6 +2,7 @@
 
 #include "Yortek/Core/Defines.h"
 #include "Yortek/Rendering/Framebuffer.h"
+#include "Yortek/Rendering/Color.h"
 #include "Yortek/Math/include.h"
 
 namespace Yortek::Rendering
@@ -17,15 +18,15 @@ namespace Yortek::Rendering
   struct Camera
   {
   public:
-    Color clear_color{ 1.0f };
+    Camera(int width, int height);
+
+    Color clear_color{ 1.0f, 1.0f, 1.0f, 1.0f };
     CameraMode mode{ CameraMode::Perspective };
     float field_of_view{ 60.0f };
     float near_clip{ 0.01f };
     float far_clip{ 100.0f };
     float ortho_size{ 10.0f };
     bool active{ false };
-
-    Camera();
 
     void resize(int width, int height);
 

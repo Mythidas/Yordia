@@ -8,10 +8,10 @@ namespace Yortek
 {
   Unique<Window> Window::Builder::build() const
   {
-    switch (Application::get_backend())
+    switch (Environment::get_graphics_api())
     {
-    case ApplicationBackend::None: return CreateUnique<None::N_Window>(*this);
-    case ApplicationBackend::OpenGL: return CreateUnique<WND::WND_Window>(*this);
+    case GraphicsAPI::None: return CreateUnique<None::N_Window>(*this);
+    case GraphicsAPI::OpenGL: return CreateUnique<WND::WND_Window>(*this);
     }
 
     Debug::Log::error("Invalid Application backend!");
