@@ -24,7 +24,8 @@ project "Yordia"
   includedirs
   {
     "src",
-    "%{wks.location}/Yortek/include"
+    "%{wks.location}/Yortek/include",
+    "%{IncludeDir.SPD}",
   }
 
   links

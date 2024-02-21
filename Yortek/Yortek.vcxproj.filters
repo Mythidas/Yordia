@@ -4,41 +4,126 @@
     <Filter Include="include">
       <UniqueIdentifier>{89AF369E-F58E-B539-FEA6-40106A051C9B}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\Platform">
+      <UniqueIdentifier>{FD7581F9-E96E-A04B-12A1-85D0FEF87F57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Platform\None">
+      <UniqueIdentifier>{1CE85A4F-8854-164A-5148-AEA7BD7338B2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Platform\OpenGL">
+      <UniqueIdentifier>{91E01794-FD17-602B-0622-C44E72D88624}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Platform\Windows">
+      <UniqueIdentifier>{37CD2F6F-23F2-7EEF-4C3D-647F38C17D0D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Yortek">
+      <UniqueIdentifier>{D620DC2E-C2EE-CF34-AB82-405B97EFAB99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Yortek\Core">
+      <UniqueIdentifier>{EE3A1974-5A9C-F681-E309-3D344F6A2D41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Yortek\Debug">
+      <UniqueIdentifier>{CCF34CF7-B882-D6C0-61A1-EABB4D0FE766}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Yortek\Rendering">
+      <UniqueIdentifier>{A36DF7CB-8F92-464C-B8DD-2BDCA461456A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Yortek\Tools">
+      <UniqueIdentifier>{D62D74F8-C2BC-FDC1-6BDB-11BD57490E68}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src">
       <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Platform">
+      <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Platform\OpenGL">
+      <UniqueIdentifier>{35A49437-A105-7245-2A73-B8F796D3A804}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Platform\Windows">
+      <UniqueIdentifier>{5B054582-4794-CE4B-F0B2-E246DC20DFF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Yortek">
+      <UniqueIdentifier>{FA1BF23C-E6D3-338A-4FDB-0CE63BB2CE7A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Yortek\Core">
+      <UniqueIdentifier>{92CC1D6A-FE57-8B2E-0769-0E237373E72E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Yortek\Debug">
+      <UniqueIdentifier>{F0B9E3AD-DCB2-0200-05E5-E784F13CE20B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Yortek\Rendering">
+      <UniqueIdentifier>{C7A50CDF-B334-96A8-5C53-AAA348C1A64E}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Platform\None\N_GraphicsContext.h">
+      <Filter>include\Platform\None</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Platform\None\N_Window.h">
+      <Filter>include\Platform\None</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Platform\OpenGL\OGL_GraphicsContext.h">
+      <Filter>include\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Platform\Windows\WND_Window.h">
+      <Filter>include\Platform\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="include\Yortek.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Yortek\Core\Application.h" />
-    <ClInclude Include="include\Yortek\Core\Defines.h" />
-    <ClInclude Include="include\Yortek\Tools\Singleton.h" />
-    <ClInclude Include="include\Yortek\Core\KeyCodes.h" />
-    <ClInclude Include="include\Yortek\Core\Window.h" />
-    <ClInclude Include="include\Yortek\Core\Event.h" />
-    <ClInclude Include="include\Platform\Windows\WND_Window.h" />
-    <ClInclude Include="include\Yortek\Rendering\GraphicsContext.h" />
-    <ClInclude Include="include\Platform\OpenGL\OGL_GraphicsContext.h" />
-    <ClInclude Include="include\Yortek\Tools\BuilderHelper.h" />
-    <ClInclude Include="include\Platform\None\N_GraphicsContext.h" />
-    <ClInclude Include="include\Platform\None\N_Window.h" />
-    <ClInclude Include="include\Yortek\Scene\Object.h" />
-    <ClInclude Include="include\Yortek\Scene\Component.h" />
-    <ClInclude Include="include\Yortek\Scene\Scene.h" />
-    <ClInclude Include="include\Yortek\Scene\ObjectRegistry.h" />
-    <ClInclude Include="include\Yortek\Scene\ComponentPool.h" />
-    <ClInclude Include="include\Yortek\Rendering\Renderer2D.h" />
+    <ClInclude Include="include\Yortek\Core\Application.h">
+      <Filter>include\Yortek\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Yortek\Core\Defines.h">
+      <Filter>include\Yortek\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Yortek\Core\Event.h">
+      <Filter>include\Yortek\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Yortek\Core\KeyCodes.h">
+      <Filter>include\Yortek\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Yortek\Core\Window.h">
+      <Filter>include\Yortek\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Yortek\Debug\Log.h">
+      <Filter>include\Yortek\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Yortek\Rendering\GraphicsContext.h">
+      <Filter>include\Yortek\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Yortek\Rendering\Renderer2D.h">
+      <Filter>include\Yortek\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Yortek\Tools\BuilderHelper.h">
+      <Filter>include\Yortek\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Yortek\Tools\Singleton.h">
+      <Filter>include\Yortek\Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Platform\OpenGL\OGL_GraphicsContext.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WND_Window.cpp">
+      <Filter>src\Platform\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="src\Yortek.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Yortek\Core\Application.cpp" />
-    <ClCompile Include="src\Yortek\Core\Window.cpp" />
-    <ClCompile Include="src\Platform\Windows\WND_Window.cpp" />
-    <ClCompile Include="src\Yortek\Rendering\GraphicsContext.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OGL_GraphicsContext.cpp" />
+    <ClCompile Include="src\Yortek\Core\Application.cpp">
+      <Filter>src\Yortek\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Yortek\Core\Window.cpp">
+      <Filter>src\Yortek\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Yortek\Debug\Log.cpp">
+      <Filter>src\Yortek\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Yortek\Rendering\GraphicsContext.cpp">
+      <Filter>src\Yortek\Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

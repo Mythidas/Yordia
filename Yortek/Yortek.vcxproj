@@ -147,17 +147,13 @@
     <ClInclude Include="include\Yortek.h" />
     <ClInclude Include="include\Yortek\Core\Application.h" />
     <ClInclude Include="include\Yortek\Core\Defines.h" />
+    <ClInclude Include="include\Yortek\Core\Event.h" />
     <ClInclude Include="include\Yortek\Core\KeyCodes.h" />
     <ClInclude Include="include\Yortek\Core\Window.h" />
+    <ClInclude Include="include\Yortek\Debug\Log.h" />
     <ClInclude Include="include\Yortek\Rendering\GraphicsContext.h" />
     <ClInclude Include="include\Yortek\Rendering\Renderer2D.h" />
-    <ClInclude Include="include\Yortek\Scene\Component.h" />
-    <ClInclude Include="include\Yortek\Scene\ComponentPool.h" />
-    <ClInclude Include="include\Yortek\Scene\Object.h" />
-    <ClInclude Include="include\Yortek\Scene\ObjectRegistry.h" />
-    <ClInclude Include="include\Yortek\Scene\Scene.h" />
     <ClInclude Include="include\Yortek\Tools\BuilderHelper.h" />
-    <ClInclude Include="include\Yortek\Core\Event.h" />
     <ClInclude Include="include\Yortek\Tools\Singleton.h" />
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +162,7 @@
     <ClCompile Include="src\Yortek.cpp" />
     <ClCompile Include="src\Yortek\Core\Application.cpp" />
     <ClCompile Include="src\Yortek\Core\Window.cpp" />
+    <ClCompile Include="src\Yortek\Debug\Log.cpp" />
     <ClCompile Include="src\Yortek\Rendering\GraphicsContext.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,11 @@
 #include <Yortek/Core/Application.h>
+#include <Yortek/Debug/Log.h>
 #include <iostream>
+
+void on_update()
+{
+  // Yortek::Debug::Log::trace("Update Callback");
+}
 
 int main()
 {
@@ -18,7 +24,7 @@ int main()
 
   // Place Application Logic
   
-
+  Application::ev_OnUpdate += on_update;
 
   // -----------------------
 

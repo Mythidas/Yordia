@@ -1,5 +1,6 @@
 #include "Yortek/Core/Window.h"
 #include "Yortek/Core/Application.h"
+#include "Yortek/Debug/Log.h"
 #include "Platform/None/N_Window.h"
 #include "Platform/Windows/WND_Window.h"
 
@@ -13,7 +14,7 @@ namespace Yortek
     case ApplicationBackend::OpenGL: return CreateUnique<WND::WND_Window>(*this);
     }
 
-    // TODO: Log error
+    Debug::Log::error("Invalid Application backend!");
     return nullptr;
   }
 }

@@ -1,4 +1,5 @@
 #include "Platform/OpenGL/OGL_GraphicsContext.h"
+#include "Yortek/Debug/Log.h"
 
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
@@ -10,7 +11,7 @@ namespace Yortek::Rendering::OGL
   {
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
-      // TODO: log error
+      Debug::Log::critical("Could not load GLAD!");
     }
   }
 
