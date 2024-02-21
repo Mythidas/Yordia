@@ -26,6 +26,7 @@ namespace Yortek::Rendering
 		static const int MAX_INDICES = MAX_QUADS * 6;
 		static const int MAX_TEXTURE_SLOTS = 32;
 
+		// TODO: Remove shader pipeline from being forced into the renderer, should be attached to objects
 		Shared<Shader> pipeline;
 		Shared<RenderBuffer> buffer;
 		Vertex* staging_buffer{ nullptr };
@@ -34,8 +35,8 @@ namespace Yortek::Rendering
 		uint32_t texture_slot_index{ 1 };
 		Shared<Image> texture_slots[MAX_TEXTURE_SLOTS];
 
-		glm::vec4 vertex_positions[4]{};
-		glm::vec2 texture_positions[4]{};
+		Vector4 vertex_positions[4]{};
+		Vector2 texture_positions[4]{};
 
 		Camera camera;
 		struct CameraBuffer

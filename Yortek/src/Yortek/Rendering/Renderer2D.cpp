@@ -1,22 +1,22 @@
-#include "YTEngine/Graphics/Renderer.h"
-#include "YTEngine/Core/Application.h"
+#include "Yortek/Rendering/Renderer2D.h"
+#include "Yortek/Rendering/RenderCommands.h"
+#include "Yortek/Core/Application.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 
-namespace Yor
+namespace Yortek::Rendering
 {
-	RenderData Renderer::s_quadData;
-	Unique<RenderCommands> Renderer::s_renderCommands = nullptr;
+	RenderData Renderer2D::s_quad_data;
 
-	void Renderer::_construct()
+	void Renderer2D::_construct()
 	{
-		s_quadData.buffer = RenderBuffer::Builder()
-			.setSize(sizeof(Vertex) * RenderData::MAX_VERTICES)
-			.setUsage(BufferUsage::Vertex)
-			.setRate(BufferRate::Dynamic)
+		s_quad_data.buffer = RenderBuffer::Builder()
+			.set_size(sizeof(Vertex) * RenderData::MAX_VERTICES)
+			.set_usage(BufferUsage::Vertex)
+			.set_rate(BufferRate::Dynamic)
 			.build();
 
-		s_quadData.stagingBuffer = new Vertex[RenderData::MAX_VERTICES];
+		s_quad_data.staging_buffer = new Vertex[RenderData::MAX_VERTICES];
 
 		uint32_t indices[RenderData::MAX_INDICES]{};
 		uint32_t offset = 0;
@@ -34,172 +34,160 @@ namespace Yor
 		}
 
 		Shared<RenderBuffer> indexBuffer = RenderBuffer::Builder()
-			.setSize(sizeof(indices))
-			.setUsage(BufferUsage::Index)
-			.setRate(BufferRate::Static)
+			.set_size(sizeof(indices))
+			.set_usage(BufferUsage::Index)
+			.set_rate(BufferRate::Static)
 			.build();
 
-		indexBuffer->setData(indices, sizeof(indices), 0);
+		indexBuffer->set_data(indices, sizeof(indices), 0);
 
-		s_quadData.vertexPositions[0] = { 0.5f, 0.5f, 0.0f, 1.0f };
-		s_quadData.vertexPositions[1] = { 0.5f, -0.5f, 0.0f, 1.0f };
-		s_quadData.vertexPositions[2] = { -0.5f, -0.5f, 0.0f, 1.0f };
-		s_quadData.vertexPositions[3] = { -0.5f, 0.5f, 0.0f, 1.0f };
+		s_quad_data.vertex_positions[0] = { 0.5f, 0.5f, 0.0f, 1.0f };
+		s_quad_data.vertex_positions[1] = { 0.5f, -0.5f, 0.0f, 1.0f };
+		s_quad_data.vertex_positions[2] = { -0.5f, -0.5f, 0.0f, 1.0f };
+		s_quad_data.vertex_positions[3] = { -0.5f, 0.5f, 0.0f, 1.0f };
 
-		s_quadData.texturePositions[0] = { 1.0f, 1.0f };
-		s_quadData.texturePositions[1] = { 1.0f, 0.0f };
-		s_quadData.texturePositions[2] = { 0.0f, 0.0f };
-		s_quadData.texturePositions[3] = { 0.0f, 1.0f };
+		s_quad_data.texture_positions[0] = { 1.0f, 1.0f };
+		s_quad_data.texture_positions[1] = { 1.0f, 0.0f };
+		s_quad_data.texture_positions[2] = { 0.0f, 0.0f };
+		s_quad_data.texture_positions[3] = { 0.0f, 1.0f };
 
 		uint32_t whiteTextureData = 0xFFFFFFFF;
 		Shared<Image> whiteTex = Image::Builder()
-			.setFormat(ImageFormat::RGBA8)
-			.setSize({ 1, 1, 1 })
-			.setType(ImageType::e2D)
+			.set_format(ImageFormat::RGBA8)
+			.set_size({ 1, 1, 1 })
+			.set_type(ImageType::e2D)
 			.build();
 
-		whiteTex->setData(&whiteTextureData, sizeof(uint32_t));
-		s_quadData.textureSlots[0] = whiteTex;
+		whiteTex->set_data(&whiteTextureData, sizeof(uint32_t));
+		s_quad_data.texture_slots[0] = whiteTex;
 
-		s_quadData.cameraUniform = RenderBuffer::Builder()
-			.setBinding(0)
-			.setRate(BufferRate::Dynamic)
-			.setSize(sizeof(RenderData::CameraBuffer))
-			.setUsage(BufferUsage::Uniform)
+		s_quad_data.camera_uniform = RenderBuffer::Builder()
+			.set_binding(0)
+			.set_rate(BufferRate::Dynamic)
+			.set_size(sizeof(RenderData::CameraBuffer))
+			.set_usage(BufferUsage::Uniform)
 			.build();
 
-		s_quadData.pipeline = GraphicsPipeline::Builder()
-			.setVertPath("../Assets/Shaders/QuadShader.vert")
-			.setFragPath("../Assets/Shaders/QuadShader.frag")
-			.setVertexBuffer(s_quadData.buffer)
-			.setIndexBuffer(indexBuffer)
-			.setRenderBuffers({ s_quadData.cameraUniform })
-			.setAttributes({ VertexAttribute::Float3, VertexAttribute::Float3, VertexAttribute::Float2, VertexAttribute::Float })
+		s_quad_data.pipeline = Shader::Builder()
+			.set_vert_path("../Assets/Shaders/QuadShader.vert")
+			.set_frag_path("../Assets/Shaders/QuadShader.frag")
+			.set_vertex_buffer(s_quad_data.buffer)
+			.set_index_buffer(indexBuffer)
+			.set_render_buffers({ s_quad_data.camera_uniform })
+			.set_attributes({ VertexAttribute::Float3, VertexAttribute::Float3, VertexAttribute::Float2, VertexAttribute::Float })
 			.build();
 
-		s_renderCommands = RenderCommands::Builder().build();
-		RenderCommands::enableDepthTesting(true);
+		RenderCommands::enable_depth_testing(true);
 	}
 
-	void Renderer::_destruct()
+	void Renderer2D::_destruct()
 	{
-		delete[] s_quadData.stagingBuffer;
+		delete[] s_quad_data.staging_buffer;
 	}
 
-	void Renderer::beginFrame(Ref<Camera> camera, const Transform& transform)
+	void Renderer2D::begin_frame(const Camera& camera, const Transform& transform)
 	{
-		s_quadData.camera = camera;
+		s_quad_data.camera = camera;
 		Transform transformCopy(transform);
 		transformCopy.position.y *= -1;
 		transformCopy.position.z *= -1;
 
-		s_quadData.cameraBuffer.view = transformCopy.getInverseMatrix();
-		s_quadData.cameraBuffer.projection = camera->getProjection();
-		s_quadData.cameraUniform->setData(&s_quadData.cameraBuffer, sizeof(RenderData::CameraBuffer), 0);
+		s_quad_data.camera_buffer.view = transformCopy.get_inverse_matrix();
+		s_quad_data.camera_buffer.projection = camera.get_projection();
+		s_quad_data.camera_uniform->set_data(&s_quad_data.camera_buffer, sizeof(RenderData::CameraBuffer), 0);
 
-		RenderCommands::resize(camera->getSwapBuffer()->getSize().x, camera->getSwapBuffer()->getSize().y);
-		camera->getSwapBuffer()->bind();
-		RenderCommands::setClearColor(camera->clearColor.x, camera->clearColor.y, camera->clearColor.z);
+		RenderCommands::resize(camera.get_framebuffer()->get_size());
+		camera.get_framebuffer()->bind();
+		RenderCommands::clear_color(camera.clear_color);
 
-		_beginBatch();
+		_begin_batch();
 	}
 
-	void Renderer::endFrame()
+	void Renderer2D::end_frame()
 	{
-		_endBatch();
-		s_quadData.camera->getSwapBuffer()->Unbind();
+		_end_batch();
+		s_quad_data.camera.get_framebuffer()->unbind();
 	}
 
-	void Renderer::drawQuad(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale, const glm::vec3& color)
+	void Renderer2D::draw_quad(const Vector3& position, const Vector3& rotation, const Vector3& scale, const Color& color)
 	{
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), glm::vec3(position))
-			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation.x), glm::vec3(glm::vec3(1.0f, 0.0f, 0.0f)))
-			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation.y), glm::vec3(glm::vec3(0.0f, 1.0f, 0.0f)))
-			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation.z), glm::vec3(glm::vec3(0.0f, 0.0f, 1.0f)))
+		Matrix4 transform = glm::translate(glm::mat4(1.0f), glm::vec3(position))
+			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f))
+			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f))
+			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f))
 			* glm::scale(glm::mat4(1.0f), glm::vec3(scale));
 
-		drawQuad(transform, color, 0.0f);
+		draw_quad(transform, color, 0.0f);
 	}
 
-	void Renderer::drawQuad(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale, const glm::vec3& color, Shared<Image> texture)
+	void Renderer2D::draw_quad(const Vector3& position, const Vector3& rotation, const Vector3& scale, const Color& color, Shared<Image> texture)
 	{
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), glm::vec3(position))
-			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation.x), glm::vec3(glm::vec3(1.0f, 0.0f, 0.0f)))
-			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation.y), glm::vec3(glm::vec3(0.0f, 1.0f, 0.0f)))
-			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation.z), glm::vec3(glm::vec3(0.0f, 0.0f, 1.0f)))
+			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f))
+			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f))
+			* glm::rotate(glm::mat4(1.0f), glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f))
 			* glm::scale(glm::mat4(1.0f), glm::vec3(scale));
 
-		float texIndex = _getTextureIndex(texture);
-		drawQuad(transform, color, texIndex);
+		float texIndex = _get_texture_index(texture);
+		draw_quad(transform, color, texIndex);
 	}
 
-	void Renderer::drawQuad(const glm::mat4& transform, const glm::vec3& color, float texIndex)
+	void Renderer2D::draw_quad(const Matrix4& transform, const Color& color, float texIndex)
 	{
-		_checkBatch();
+		draw_quad(transform, color, s_quad_data.texture_positions, texIndex);
+	}
+
+	void Renderer2D::draw_quad(const Matrix4& transform, const Color& color, Vector2 texCoords[4], float texIndex)
+	{
+		_check_batch();
 
 		for (size_t i = 0; i < 4; i++)
 		{
-			s_quadData.stagingBufferPtr->position = transform * s_quadData.vertexPositions[i];
-			s_quadData.stagingBufferPtr->color = color;
-			s_quadData.stagingBufferPtr->texCoord = s_quadData.texturePositions[i];
-			s_quadData.stagingBufferPtr->texIndex = texIndex;
-			s_quadData.stagingBufferPtr++;
+			s_quad_data.staging_buffer_ptr->position = glm::vec3(transform * s_quad_data.vertex_positions[i]);
+			s_quad_data.staging_buffer_ptr->color = Vector3(color.r, color.g, color.b);
+			s_quad_data.staging_buffer_ptr->texCoord = texCoords[i];
+			s_quad_data.staging_buffer_ptr->texIndex = texIndex;
+			s_quad_data.staging_buffer_ptr++;
 		}
 
-		s_quadData.indexCount += 6;
+		s_quad_data.index_count += 6;
 	}
 
-	void Renderer::drawQuad(const glm::mat4& transform, const glm::vec3& color, glm::vec2 texCoords[4], float texIndex)
+	void Renderer2D::_check_batch()
 	{
-		_checkBatch();
-
-		for (size_t i = 0; i < 4; i++)
+		if (s_quad_data.index_count >= RenderData::MAX_INDICES || s_quad_data.texture_slot_index == RenderData::MAX_TEXTURE_SLOTS)
 		{
-			s_quadData.stagingBufferPtr->position = transform * s_quadData.vertexPositions[i];
-			s_quadData.stagingBufferPtr->color = color;
-			s_quadData.stagingBufferPtr->texCoord = texCoords[i];
-			s_quadData.stagingBufferPtr->texIndex = texIndex;
-			s_quadData.stagingBufferPtr++;
+			_end_batch();
+			_begin_batch();
 		}
-
-		s_quadData.indexCount += 6;
 	}
 
-	void Renderer::_checkBatch()
+	void Renderer2D::_begin_batch()
 	{
-		if (s_quadData.indexCount >= RenderData::MAX_INDICES || s_quadData.textureSlotIndex == RenderData::MAX_TEXTURE_SLOTS)
+		s_quad_data.staging_buffer_ptr = s_quad_data.staging_buffer;
+		s_quad_data.index_count = 0;
+		s_quad_data.texture_slot_index = 1;
+	}
+
+	void Renderer2D::_end_batch()
+	{
+		for (uint32_t i = 0; i < s_quad_data.texture_slot_index; i++)
 		{
-			_endBatch();
-			_beginBatch();
-		}
-	}
-
-	void Renderer::_beginBatch()
-	{
-		s_quadData.stagingBufferPtr = s_quadData.stagingBuffer;
-		s_quadData.indexCount = 0;
-		s_quadData.textureSlotIndex = 1;
-	}
-
-	void Renderer::_endBatch()
-	{
-		for (uint32_t i = 0; i < s_quadData.textureSlotIndex; i++)
-		{
-			s_quadData.textureSlots[i]->bind(i);
+			s_quad_data.texture_slots[i]->bind(i);
 		}
 
-		size_t size = (uint8_t*)s_quadData.stagingBufferPtr - (uint8_t*)s_quadData.stagingBuffer;
-		s_quadData.buffer->setData(s_quadData.stagingBuffer, size, 0);
+		size_t size = (uint8_t*)s_quad_data.staging_buffer_ptr - (uint8_t*)s_quad_data.staging_buffer;
+		s_quad_data.buffer->set_data(s_quad_data.staging_buffer, size, 0);
 
-		s_quadData.pipeline->draw(s_quadData.indexCount);
+		s_quad_data.pipeline->draw(s_quad_data.index_count);
 	}
 
-	float Renderer::_getTextureIndex(Shared<Image> texture)
+	float Renderer2D::_get_texture_index(Shared<Image> texture)
 	{
 		float texIndex = 0.0f;
-		for (uint32_t i = 1; i < s_quadData.textureSlotIndex; i++)
+		for (uint32_t i = 1; i < s_quad_data.texture_slot_index; i++)
 		{
-			if (*(float*)s_quadData.textureSlots[i]->getRenderID() == *(float*)texture->getRenderID())
+			if (*(float*)s_quad_data.texture_slots[i]->get_render_id() == *(float*)texture->get_render_id())
 			{
 				texIndex = (float)i;
 				break;
@@ -208,9 +196,9 @@ namespace Yor
 
 		if (texIndex == 0.0f)
 		{
-			texIndex = (float)s_quadData.textureSlotIndex;
-			s_quadData.textureSlots[(size_t)texIndex] = texture;
-			s_quadData.textureSlotIndex++;
+			texIndex = (float)s_quad_data.texture_slot_index;
+			s_quad_data.texture_slots[(size_t)texIndex] = texture;
+			s_quad_data.texture_slot_index++;
 		}
 
 		return texIndex;

@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Yortek/Core/Defines.h"
+#include "Yortek/Rendering/Color.h"
+#include "Yortek/Math/Vector2.h"
 #include "Yortek/Tools/Singleton.h"
 
 namespace Yortek::Rendering
@@ -14,8 +16,8 @@ namespace Yortek::Rendering
     };
 
     static void enable_depth_testing(bool enable) { instance()._enable_depth_testing_impl(enable); }
-    static void clear_color(float r, float g, float b) { instance()._clear_color_impl(r, g, b); }
-    static void resize(int width, int height) { instance()._resize_impl(width, height); }
+    static void clear_color(Color color) { instance()._clear_color_impl(color.r, color.g, color.b); }
+    static void resize(const Math::IVector2& size) { instance()._resize_impl(size.x, size.y); }
 
   protected:
     virtual void _enable_depth_testing_impl(bool enable) = 0;

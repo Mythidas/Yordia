@@ -80,6 +80,10 @@ namespace Yortek::Math
 		TVector4<T>& operator*=(const TVector4<T>& rhs);
 		TVector4<T>& operator/=(const TVector4<T>& rhs);
 
+		// Boolean Ops
+		bool operator==(const TVector4<T>& rhs) const;
+		bool operator!=(const TVector4<T>& rhs) const;
+
 		T operator[](int index) const
 		{
 			static_assert(index > 3 || index < 0, "Index out of range!");
@@ -200,5 +204,17 @@ namespace Yortek::Math
 	{
 		x /= rhs.x; y /= rhs.y; z /= rhs.z; w /= rhs.w;
 		return *this;
+	}
+
+	// Boolean Ops
+	template<typename T>
+	inline bool TVector4<T>::operator==(const TVector4<T>& rhs) const
+	{
+		return x == rhs.x && y == rhs.y && z == rhs.z; w == rhs.w;
+	}
+	template<typename T>
+	inline bool TVector4<T>::operator!=(const TVector4<T>& rhs) const
+	{
+		return x != rhs.x && y != rhs.y && z != rhs.z; w != rhs.w;
 	}
 }

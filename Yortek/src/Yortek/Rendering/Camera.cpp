@@ -1,20 +1,15 @@
-#include "YTEngine/Graphics/Camera.h"
-#include "YTEngine/Core/Application.h"
-#include "YTEngine/Scene/SceneView.h"
-#include "YTEngine/Scene/Entity.h"
-#include "YTEngine/Scene/Ref.h"
+#include "Yortek/Rendering/Camera.h"
+#include "Yortek/Core/Application.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 
-namespace Yor
+namespace Yortek::Rendering
 {
   Camera::Camera()
   {
-    if (!Application::isRunning()) return;
-
-    glm::uvec2 size(Application::getWindow()->getWidth(), Application::getWindow()->getHeight());
-    m_swapBuffer = Framebuffer::Builder()
-      .setSize(size)
+    IVector2 size(Application::get_window()->get_width(), Application::get_window()->get_height());
+    m_framebuffer = Framebuffer::Builder()
+      .set_size(size)
       .build();
   }
 
@@ -22,33 +17,21 @@ namespace Yor
   {
     if (width <= 0 || height <= 0) return;
 
-    glm::uvec2 newSize = glm::uvec2(uint32_t(width), uint32_t(height));
-    if (newSize == m_currentSize) return;
+    IVector2 newSize = IVector2(width, height);
+    if (newSize == m_current_size) return;
 
     float aspect = float(width) / float(height);
 
     if (mode == CameraMode::Perspective)
     {
-      m_projection = glm::perspective(glm::radians(fieldOfView), aspect, nearClip, farClip);
+      m_projection = glm::perspective(glm::radians(field_of_view), aspect, near_clip, far_clip);
     }
     else
     {
-      m_projection = glm::ortho(-orthoSize * aspect, orthoSize * aspect, -orthoSize, orthoSize, nearClip, farClip);
+      m_projection = glm::ortho(-ortho_size * aspect, ortho_size * aspect, -ortho_size, ortho_size, near_clip, far_clip);
     }
 
-    m_currentSize = newSize;
-    m_swapBuffer->resize(newSize);
-  }
-
-  Ref<Camera> Camera::getActiveCamera()
-  {
-    for (Entity ent : SceneView<Camera>())
-    {
-      Camera* camera = ent.getComponent<Camera>();
-      if (camera && camera->active)
-        return Ref<Camera>(ent);
-    }
-
-    return nullptr;
+    m_current_size = newSize;
+    m_framebuffer->resize(newSize);
   }
 }

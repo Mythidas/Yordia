@@ -68,6 +68,10 @@ namespace Yortek::Math
 		TVector2<T>& operator*=(const TVector2<T>& rhs);
 		TVector2<T>& operator/=(const TVector2<T>& rhs);
 
+		// Boolean Ops
+		bool operator==(const TVector2<T>& rhs) const;
+		bool operator!=(const TVector2<T>& rhs) const;
+
 		T operator[](int index) const
 		{
 			if (index == 0)
@@ -182,5 +186,17 @@ namespace Yortek::Math
 	{
 		x /= rhs.x; y /= rhs.y;
 		return *this;
+	}
+
+	// Boolean Ops
+	template<typename T>
+	inline bool TVector2<T>::operator==(const TVector2<T>& rhs) const
+	{
+		return x == rhs.x && y == rhs.y;
+	}
+	template<typename T>
+	inline bool TVector2<T>::operator!=(const TVector2<T>& rhs) const
+	{
+		return x != rhs.x && y != rhs.y;
 	}
 }

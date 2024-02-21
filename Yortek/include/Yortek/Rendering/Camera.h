@@ -17,7 +17,7 @@ namespace Yortek::Rendering
   struct Camera
   {
   public:
-    Matrix4 clear_color{ 1.0f };
+    Color clear_color{ 1.0f };
     CameraMode mode{ CameraMode::Perspective };
     float field_of_view{ 60.0f };
     float near_clip{ 0.01f };

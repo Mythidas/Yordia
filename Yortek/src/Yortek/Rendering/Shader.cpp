@@ -1,15 +1,15 @@
-#include "YTEngine/Graphics/GraphicsPipline.h"
-#include "YTEngine/Core/Application.h"
-#include "Platform/OpenGL/OGL_GraphicsPipeline.h"
+#include "Yortek/Rendering/Shader.h"
+#include "Yortek/Core/Application.h"
+#include "Platform/OpenGL/OGL_Shader.h"
 
-namespace Yor
+namespace Yortek::Rendering
 {
-	Shared<GraphicsPipeline> GraphicsPipeline::Builder::build() const
+	Shared<Shader> Shader::Builder::build() const
 	{
-		switch (Application::getBackend())
+		switch (Application::get_backend())
 		{
 		case ApplicationBackend::None: return nullptr;
-		case ApplicationBackend::OpenGL: return CreateShared<OGL::OGL_GraphicsPipeline>(*this);
+		case ApplicationBackend::OpenGL: return CreateShared<OGL::OGL_Shader>(*this);
 		}
 
 		return nullptr;

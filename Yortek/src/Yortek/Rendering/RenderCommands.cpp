@@ -1,12 +1,12 @@
-#include "YTEngine/Graphics/RenderCommands.h"
-#include "YTEngine/Core/Application.h"
+#include "Yortek/Rendering/RenderCommands.h"
+#include "Yortek/Core/Application.h"
 #include "Platform/OpenGL/OGL_RenderCommands.h"
 
-namespace Yor
+namespace Yortek::Rendering
 {
 	Unique<RenderCommands> RenderCommands::Builder::build() const
 	{
-		switch (Application::getBackend())
+		switch (Application::get_backend())
 		{
 		case ApplicationBackend::None: return nullptr;
 		case ApplicationBackend::OpenGL: return CreateUnique<OGL::OGL_RenderCommands>();
