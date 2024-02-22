@@ -157,6 +157,7 @@
     <ClInclude Include="include\Yortek\Core\Input.h" />
     <ClInclude Include="include\Yortek\Core\KeyCodes.h" />
     <ClInclude Include="include\Yortek\Core\Time.h" />
+    <ClInclude Include="include\Yortek\Core\UUID.h" />
     <ClInclude Include="include\Yortek\Core\Window.h" />
     <ClInclude Include="include\Yortek\Debug\Log.h" />
     <ClInclude Include="include\Yortek\Math\Bit.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="include\Yortek\Math\Vector3.h" />
     <ClInclude Include="include\Yortek\Math\Vector4.h" />
     <ClInclude Include="include\Yortek\Math\include.h" />
+    <ClInclude Include="include\Yortek\Reflection\Type.h" />
     <ClInclude Include="include\Yortek\Rendering\Camera.h" />
     <ClInclude Include="include\Yortek\Rendering\Color.h" />
     <ClInclude Include="include\Yortek\Rendering\Framebuffer.h" />
@@ -176,10 +178,14 @@
     <ClInclude Include="include\Yortek\Rendering\RenderData.h" />
     <ClInclude Include="include\Yortek\Rendering\Renderer2D.h" />
     <ClInclude Include="include\Yortek\Rendering\Shader.h" />
+    <ClInclude Include="include\Yortek\Scene\ComponentPool.h" />
+    <ClInclude Include="include\Yortek\Scene\Entity.h" />
     <ClInclude Include="include\Yortek\Scene\Registry.h" />
     <ClInclude Include="include\Yortek\Tools\BuilderHelper.h" />
+    <ClInclude Include="include\Yortek\Tools\Hash.h" />
     <ClInclude Include="include\Yortek\Tools\Path.h" />
     <ClInclude Include="include\Yortek\Tools\Singleton.h" />
+    <ClInclude Include="src\Yortek\Scene\ComponentPool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OGL_Framebuffer.cpp" />
@@ -193,6 +199,7 @@
     <ClCompile Include="src\Yortek\Core\Application.cpp" />
     <ClCompile Include="src\Yortek\Core\Input.cpp" />
     <ClCompile Include="src\Yortek\Core\Time.cpp" />
+    <ClCompile Include="src\Yortek\Core\UUID.cpp" />
     <ClCompile Include="src\Yortek\Core\Window.cpp" />
     <ClCompile Include="src\Yortek\Debug\Log.cpp" />
     <ClCompile Include="src\Yortek\Math\Transform.cpp" />
@@ -204,6 +211,7 @@
     <ClCompile Include="src\Yortek\Rendering\RenderCommands.cpp" />
     <ClCompile Include="src\Yortek\Rendering\Renderer2D.cpp" />
     <ClCompile Include="src\Yortek\Rendering\Shader.cpp" />
+    <ClCompile Include="src\Yortek\Scene\Registry.cpp" />
     <ClCompile Include="src\Yortek\Tools\Path.cpp" />
   </ItemGroup>
   <ItemGroup>

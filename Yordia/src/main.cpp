@@ -3,6 +3,7 @@
 #include <Yortek/Core/Time.h>
 #include <Yortek/Rendering/Renderer2D.h>
 #include <Yortek/Debug/Log.h>
+#include <Yortek/Reflection/Type.h>
 #include <iostream>
 
 using namespace Yortek;

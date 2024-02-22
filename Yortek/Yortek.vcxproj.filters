@@ -180,6 +180,12 @@
     <ClInclude Include="include\Yortek\Core\Input.h" />
     <ClInclude Include="include\Yortek\Core\Time.h" />
     <ClInclude Include="include\Yortek\Scene\Registry.h" />
+    <ClInclude Include="include\Yortek\Scene\ComponentPool.h" />
+    <ClInclude Include="include\Yortek\Scene\Entity.h" />
+    <ClInclude Include="include\Yortek\Core\UUID.h" />
+    <ClInclude Include="include\Yortek\Reflection\Type.h" />
+    <ClInclude Include="src\Yortek\Scene\ComponentPool.cpp" />
+    <ClInclude Include="include\Yortek\Tools\Hash.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OGL_Framebuffer.cpp">
@@ -247,5 +253,7 @@
     </ClCompile>
     <ClCompile Include="src\Yortek\Core\Input.cpp" />
     <ClCompile Include="src\Yortek\Core\Time.cpp" />
+    <ClCompile Include="src\Yortek\Core\UUID.cpp" />
+    <ClCompile Include="src\Yortek\Scene\Registry.cpp" />
   </ItemGroup>
 </Project>
