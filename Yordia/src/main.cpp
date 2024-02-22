@@ -42,12 +42,12 @@ int main()
 
   // Place Application Logic
   
+  Application::ev_OnUpdate += on_update;
   texture = Rendering::Image::Builder().build();
   texture->load_data("../Assets/Textures/icons8-file.png");
   camera = new Yortek::Rendering::Camera(1280, 720);
   camera->clear_color = { 0.2f, 0.3f, 0.5f, 1.0f };
   transform.position.z = -5.0f;
-  Application::ev_OnUpdate += on_update;
 
   // -----------------------
 

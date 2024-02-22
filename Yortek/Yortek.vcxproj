@@ -176,6 +176,7 @@
     <ClInclude Include="include\Yortek\Rendering\RenderData.h" />
     <ClInclude Include="include\Yortek\Rendering\Renderer2D.h" />
     <ClInclude Include="include\Yortek\Rendering\Shader.h" />
+    <ClInclude Include="include\Yortek\Scene\Registry.h" />
     <ClInclude Include="include\Yortek\Tools\BuilderHelper.h" />
     <ClInclude Include="include\Yortek\Tools\Path.h" />
     <ClInclude Include="include\Yortek\Tools\Singleton.h" />

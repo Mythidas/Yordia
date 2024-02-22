@@ -179,6 +179,7 @@
     </ClInclude>
     <ClInclude Include="include\Yortek\Core\Input.h" />
     <ClInclude Include="include\Yortek\Core\Time.h" />
+    <ClInclude Include="include\Yortek\Scene\Registry.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OGL_Framebuffer.cpp">
