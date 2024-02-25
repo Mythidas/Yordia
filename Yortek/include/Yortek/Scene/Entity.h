@@ -7,7 +7,8 @@
 namespace Yortek::Scene
 {
   static const int MAX_ENTITIES = 1000;
-  using ComponentMask = std::bitset<32>;
+  static const int MAX_COMPONENTS = 32;
+  using ComponentMask = std::bitset<MAX_COMPONENTS>;
 
   class Entity
   {

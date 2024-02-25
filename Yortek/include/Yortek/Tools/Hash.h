@@ -24,7 +24,7 @@ namespace Yortek::Tools
     // Murmur 64bit
     unsigned long long get_hash(const char* input)
     {
-      uint64_t hash(525201411107845655ull);
+      unsigned long long hash(525201411107845655ull);
       for (; *input; ++input)
       {
         hash ^= *input;

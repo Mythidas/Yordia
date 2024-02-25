@@ -4,6 +4,8 @@
 #include <Yortek/Rendering/Renderer2D.h>
 #include <Yortek/Debug/Log.h>
 #include <Yortek/Reflection/Type.h>
+#include <Yortek/Scene/Registry.h>
+
 #include <iostream>
 
 using namespace Yortek;
@@ -11,6 +13,7 @@ using namespace Yortek;
 Yortek::Math::Transform transform;
 Yortek::Rendering::Camera* camera;
 Yortek::Math::Vector3 position;
+Yortek::Scene::Registry registry;
 Shared<Rendering::Image> texture;
 
 void on_update()
@@ -24,6 +27,7 @@ void on_update()
   Yortek::Rendering::Renderer2D::draw_quad(position, { 0.0f }, { 1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f});
   Yortek::Rendering::Renderer2D::draw_quad({ 0.5f }, { 0.0f }, { 0.7f }, {1.0f, 0.2f, 1.0f, 1.0f}, texture);
   Yortek::Rendering::Renderer2D::end_frame();
+
 }
 
 int main()
