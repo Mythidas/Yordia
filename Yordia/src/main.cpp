@@ -12,22 +12,32 @@ using namespace Yortek;
 
 Yortek::Math::Transform transform;
 Yortek::Rendering::Camera* camera;
-Yortek::Math::Vector3 position;
 Yortek::Scene::Registry registry;
 Shared<Rendering::Image> texture;
+
+struct PosComp : public Scene::Component
+{
+  float x, y, z;
+};
+
+Scene::Entity ent;
+Scene::Ref<PosComp> position;
 
 void on_update()
 {
   if (Yortek::Input::is_key_pressed(Yortek::KeyCode::W))
   {
-    position.x += 1.0f * Yortek::Time::get_delta_time();
+    for (auto ent : registry.get_view<PosComp>())
+    {
+      auto pos = registry.get_component<PosComp>(ent);
+      pos->x += 3.0f * Time::get_delta_time();
+    }
   }
 
   Yortek::Rendering::Renderer2D::begin_frame(*camera, transform);
-  Yortek::Rendering::Renderer2D::draw_quad(position, { 0.0f }, { 1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f});
+  Yortek::Rendering::Renderer2D::draw_quad({ position->x, position->y, position->z }, {0.0f}, {1.0f}, {1.0f, 1.0f, 1.0f, 1.0f});
   Yortek::Rendering::Renderer2D::draw_quad({ 0.5f }, { 0.0f }, { 0.7f }, {1.0f, 0.2f, 1.0f, 1.0f}, texture);
   Yortek::Rendering::Renderer2D::end_frame();
-
 }
 
 int main()
@@ -53,6 +63,9 @@ int main()
   camera = new Yortek::Rendering::Camera(1280, 720);
   camera->clear_color = { 0.2f, 0.3f, 0.5f, 1.0f };
   transform.position.z = -5.0f;
+
+  ent = registry.create_ent();
+  position = registry.add_component<PosComp>(ent);
 
   // -----------------------
 

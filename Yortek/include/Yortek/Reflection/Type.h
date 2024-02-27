@@ -8,6 +8,7 @@
 namespace Yortek
 {
 	using TypeID = uint64_t;
+	static const TypeID INVALID_TYPE = UINT64_MAX;
 
 	enum class TypeRef : int
 	{

@@ -25,6 +25,7 @@ namespace Yortek::Scene
     bool is_valid() const;
 
     T* operator->() const;
+    T& operator*() const;
 
     static_assert(std::is_base_of_v<Component, T>, "Ref<T> is not derived from Component!");
 
@@ -44,5 +45,11 @@ namespace Yortek::Scene
   {
     if (m_ref) return m_ref;
     return static_cast<T*>(RefHelper::get_ref_data(Reflection::Type<T>().id(), m_id));
+  }
+
+  template<typename T>
+  inline T& Ref<T>::operator*() const
+  {
+    return *m_ref;
   }
 }

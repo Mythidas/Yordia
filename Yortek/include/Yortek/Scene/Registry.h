@@ -34,8 +34,112 @@ namespace Yortek::Scene
     template <typename T>
     void remove_component(const Entity& ent);
 
+  public:
+    template <typename ...Components>
+    struct View
+    {
+    public:
+      View(Registry& reg)
+        : m_reg(reg)
+      {
+        if (sizeof...(Components) <= 0)
+        {
+          m_all = true;
+        }
+        else
+        {
+          size_t component_ids[] = {0, m_reg._find_pool_id(Reflection::Type<Components>().id())... };
+          for (size_t i = 1; i < (sizeof...(Components) + 1); i++)
+          {
+            if (component_ids[i] != INVALID_TYPE)
+            {
+              m_mask.set(component_ids[i]);
+            }
+            else
+            {
+              m_invalid = true;
+              break;
+            }
+          }
+        }
+      }
+
+      struct Iterator
+      {
+      public:
+        Iterator(bool all, size_t index, ComponentMask mask, Registry& reg)
+          : m_all(all), m_index(index), m_mask(mask), m_reg(reg)
+        {
+        }
+
+        Entity operator*() const
+        {
+          return m_reg.m_entities[m_index];
+        }
+
+        bool operator== (const Iterator& rhs) const
+        {
+          return m_index == rhs.m_index;
+        }
+
+        bool operator!= (const Iterator& rhs) const
+        {
+          return m_index != rhs.m_index;
+        }
+
+        Iterator& operator++ ()
+        {
+          do
+          {
+            m_index++;
+          } while (m_index < m_reg.m_entity_counter && !_is_valid_index());
+          return *this;
+        }
+
+      private:
+        bool _is_valid_index()
+        {
+          if (!m_reg._is_valid_entity(m_reg.m_entities[m_index])) return false;
+          return m_all || m_mask == (m_mask & m_reg.m_entities[m_index].components);
+        }
+
+        bool m_all;
+        size_t m_index;
+        ComponentMask m_mask;
+        Registry& m_reg;
+      };
+
+      const Iterator begin() const
+      {
+        size_t first = m_invalid ? m_reg.m_entity_counter : 0;
+        while (first < m_reg.m_entity_counter &&
+          (m_mask != (m_mask & m_reg.m_entities[first].components) ||
+            !m_reg._is_valid_entity(m_reg.m_entities[first])))
+        {
+          first++;
+        }
+
+        return Iterator(m_all, first, m_mask, m_reg);
+      }
+
+      const Iterator end() const
+      {
+        return Iterator(m_all, m_reg.m_entity_counter, m_mask, m_reg);
+      }
+
+    private:
+      bool m_all{ false };
+      bool m_invalid{ false };
+      ComponentMask m_mask;
+      Registry& m_reg;
+    };
+
+    template <typename ...Components>
+    View<Components...> get_view() { return View<Components...>(*this); }
+
   private:
     bool _is_valid_entity(const Entity& ent);
+    size_t _find_pool_id(const TypeID& component);
 
   private:
     Entity m_entities[MAX_ENTITIES];

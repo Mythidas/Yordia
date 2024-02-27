@@ -91,4 +91,12 @@ namespace Yortek::Scene
   {
     return ent.id.valid() && m_id_to_index.contains(ent.id);
   }
+
+  size_t Registry::_find_pool_id(const TypeID& component)
+  {
+    if (m_pools.contains(component))
+      return m_pools[component]->get_mask_id();
+
+    return INVALID_TYPE;
+  }
 }
