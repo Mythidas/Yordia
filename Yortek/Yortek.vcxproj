@@ -181,6 +181,8 @@
     <ClInclude Include="include\Yortek\Scene\Component.h" />
     <ClInclude Include="include\Yortek\Scene\ComponentPool.h" />
     <ClInclude Include="include\Yortek\Scene\Entity.h" />
+    <ClInclude Include="include\Yortek\Scene\IJob.h" />
+    <ClInclude Include="include\Yortek\Scene\JobScheduler.h" />
     <ClInclude Include="include\Yortek\Scene\Ref.h" />
     <ClInclude Include="include\Yortek\Scene\Registry.h" />
     <ClInclude Include="include\Yortek\Tools\BuilderHelper.h" />
@@ -213,6 +215,7 @@
     <ClCompile Include="src\Yortek\Rendering\Renderer2D.cpp" />
     <ClCompile Include="src\Yortek\Rendering\Shader.cpp" />
     <ClCompile Include="src\Yortek\Scene\ComponentPool.cpp" />
+    <ClCompile Include="src\Yortek\Scene\JobScheduler.cpp" />
     <ClCompile Include="src\Yortek\Scene\Ref.cpp" />
     <ClCompile Include="src\Yortek\Scene\Registry.cpp" />
     <ClCompile Include="src\Yortek\Tools\Path.cpp" />

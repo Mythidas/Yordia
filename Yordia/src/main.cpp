@@ -5,6 +5,7 @@
 #include <Yortek/Debug/Log.h>
 #include <Yortek/Reflection/Type.h>
 #include <Yortek/Scene/Registry.h>
+#include <Yortek/Scene/JobScheduler.h>
 
 #include <iostream>
 
@@ -20,24 +21,34 @@ struct PosComp : public Scene::Component
   float x, y, z;
 };
 
+class PosJob : public Scene::IJob
+{
+public:
+  virtual void on_update(Scene::Registry& registry)
+  {
+    if (Yortek::Input::is_key_pressed(Yortek::KeyCode::W))
+    {
+      for (auto ent : registry.get_view<PosComp>())
+      {
+        auto pos = registry.get_component<PosComp>(ent);
+        pos->x += 3.0f * Time::get_delta_time();
+      }
+    }
+  }
+};
+YOR_REGISTER_JOB(PosJob)
+
 Scene::Entity ent;
 Scene::Ref<PosComp> position;
 
 void on_update()
 {
-  if (Yortek::Input::is_key_pressed(Yortek::KeyCode::W))
-  {
-    for (auto ent : registry.get_view<PosComp>())
-    {
-      auto pos = registry.get_component<PosComp>(ent);
-      pos->x += 3.0f * Time::get_delta_time();
-    }
-  }
-
   Yortek::Rendering::Renderer2D::begin_frame(*camera, transform);
   Yortek::Rendering::Renderer2D::draw_quad({ position->x, position->y, position->z }, {0.0f}, {1.0f}, {1.0f, 1.0f, 1.0f, 1.0f});
   Yortek::Rendering::Renderer2D::draw_quad({ 0.5f }, { 0.0f }, { 0.7f }, {1.0f, 0.2f, 1.0f, 1.0f}, texture);
   Yortek::Rendering::Renderer2D::end_frame();
+
+  registry.on_update();
 }
 
 int main()

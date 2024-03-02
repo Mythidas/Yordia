@@ -1,5 +1,6 @@
 #include "Yortek/Scene/Registry.h"
 #include "Yortek/Debug/Log.h"
+#include "Yortek/Scene/JobScheduler.h"
 
 namespace Yortek::Scene
 {
@@ -39,7 +40,7 @@ namespace Yortek::Scene
 
   void Registry::on_update()
   {
-    Debug::Log::trace("Scene update");
+    JobScheduler::instance().dispatch_jobs(*this);
   }
 
   void* Registry::add_component(const TypeID& id, const size_t& size, const Entity& ent)

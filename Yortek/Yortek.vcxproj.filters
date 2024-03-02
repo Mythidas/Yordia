@@ -187,6 +187,8 @@
     <ClInclude Include="include\Yortek\Tools\Hash.h" />
     <ClInclude Include="include\Yortek\Scene\Ref.h" />
     <ClInclude Include="include\Yortek\Scene\Component.h" />
+    <ClInclude Include="include\Yortek\Scene\IJob.h" />
+    <ClInclude Include="include\Yortek\Scene\JobScheduler.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OGL_Framebuffer.cpp">
@@ -258,5 +260,6 @@
     <ClCompile Include="src\Yortek\Scene\Registry.cpp" />
     <ClCompile Include="src\Yortek\Scene\Ref.cpp" />
     <ClCompile Include="src\Yortek\Scene\ComponentPool.cpp" />
+    <ClCompile Include="src\Yortek\Scene\JobScheduler.cpp" />
   </ItemGroup>
 </Project>

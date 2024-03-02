@@ -39,30 +39,7 @@ namespace Yortek::Scene
     struct View
     {
     public:
-      View(Registry& reg)
-        : m_reg(reg)
-      {
-        if (sizeof...(Components) <= 0)
-        {
-          m_all = true;
-        }
-        else
-        {
-          size_t component_ids[] = {0, m_reg._find_pool_id(Reflection::Type<Components>().id())... };
-          for (size_t i = 1; i < (sizeof...(Components) + 1); i++)
-          {
-            if (component_ids[i] != INVALID_TYPE)
-            {
-              m_mask.set(component_ids[i]);
-            }
-            else
-            {
-              m_invalid = true;
-              break;
-            }
-          }
-        }
-      }
+      View(Registry& reg);
 
       struct Iterator
       {
@@ -109,23 +86,8 @@ namespace Yortek::Scene
         Registry& m_reg;
       };
 
-      const Iterator begin() const
-      {
-        size_t first = m_invalid ? m_reg.m_entity_counter : 0;
-        while (first < m_reg.m_entity_counter &&
-          (m_mask != (m_mask & m_reg.m_entities[first].components) ||
-            !m_reg._is_valid_entity(m_reg.m_entities[first])))
-        {
-          first++;
-        }
-
-        return Iterator(m_all, first, m_mask, m_reg);
-      }
-
-      const Iterator end() const
-      {
-        return Iterator(m_all, m_reg.m_entity_counter, m_mask, m_reg);
-      }
+      const Iterator begin() const;
+      const Iterator end() const;
 
     private:
       bool m_all{ false };
@@ -178,5 +140,51 @@ namespace Yortek::Scene
   inline void Registry::remove_component(const Entity& ent)
   {
     remove_component(Reflection::Type<T>().id(), ent);
+  }
+
+  template<typename ...Components>
+  inline Registry::View<Components...>::View(Registry& reg)
+    : m_reg(reg)
+  {
+    if (sizeof...(Components) <= 0)
+    {
+      m_all = true;
+    }
+    else
+    {
+      size_t component_ids[] = { 0, m_reg._find_pool_id(Reflection::Type<Components>().id())... };
+      for (size_t i = 1; i < (sizeof...(Components) + 1); i++)
+      {
+        if (component_ids[i] != INVALID_TYPE)
+        {
+          m_mask.set(component_ids[i]);
+        }
+        else
+        {
+          m_invalid = true;
+          break;
+        }
+      }
+    }
+  }
+
+  template<typename ...Components>
+  inline const Registry::View<Components...>::Iterator Registry::View<Components...>::begin() const
+  {
+    size_t first = m_invalid ? m_reg.m_entity_counter : 0;
+    while (first < m_reg.m_entity_counter &&
+      (m_mask != (m_mask & m_reg.m_entities[first].components) ||
+        !m_reg._is_valid_entity(m_reg.m_entities[first])))
+    {
+      first++;
+    }
+
+    return Iterator(m_all, first, m_mask, m_reg);
+  }
+
+  template<typename ...Components>
+  inline const Registry::View<Components...>::Iterator Registry::View<Components...>::end() const
+  {
+    return Iterator(m_all, m_reg.m_entity_counter, m_mask, m_reg);
   }
 }
