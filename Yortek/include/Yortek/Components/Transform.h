@@ -2,10 +2,13 @@
 
 #include "Yortek/Math/Vector3.h"
 #include "Yortek/Math/Matrix4.h"
+#include "Yortek/Scene/Component.h"
 
-namespace Yortek::Math
+using namespace Yortek::Math;
+
+namespace Yortek::Components
 {
-  struct Transform
+  struct Transform : public Scene::Component
   {
     Vector3 position{ 0.0f };
     Vector3 rotation{ 0.0f };

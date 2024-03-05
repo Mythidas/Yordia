@@ -123,7 +123,7 @@
     <ClInclude Include="include\Yortek\Math\Matrix4.h">
       <Filter>include\Yortek\Math</Filter>
     </ClInclude>
-    <ClInclude Include="include\Yortek\Math\Transform.h">
+    <ClInclude Include="include\Yortek\Components\Transform.h">
       <Filter>include\Yortek\Math</Filter>
     </ClInclude>
     <ClInclude Include="include\Yortek\Math\Vector2.h">
@@ -138,7 +138,7 @@
     <ClInclude Include="include\Yortek\Math\include.h">
       <Filter>include\Yortek\Math</Filter>
     </ClInclude>
-    <ClInclude Include="include\Yortek\Rendering\Camera.h">
+    <ClInclude Include="include\Yortek\Rendering\CameraInfo.h">
       <Filter>include\Yortek\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="include\Yortek\Rendering\Color.h">
@@ -189,6 +189,9 @@
     <ClInclude Include="include\Yortek\Scene\Component.h" />
     <ClInclude Include="include\Yortek\Scene\IJob.h" />
     <ClInclude Include="include\Yortek\Scene\JobScheduler.h" />
+    <ClInclude Include="include\Yortek\Components\SpriteRenderer.h" />
+    <ClInclude Include="include\Yortek\Jobs\Scene2DRenderJob.h" />
+    <ClInclude Include="include\Yortek\Components\Camera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OGL_Framebuffer.cpp">
@@ -224,10 +227,10 @@
     <ClCompile Include="src\Yortek\Debug\Log.cpp">
       <Filter>src\Yortek\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="src\Yortek\Math\Transform.cpp">
+    <ClCompile Include="src\Yortek\Components\Transform.cpp">
       <Filter>src\Yortek\Math</Filter>
     </ClCompile>
-    <ClCompile Include="src\Yortek\Rendering\Camera.cpp">
+    <ClCompile Include="src\Yortek\Rendering\CameraInfo.cpp">
       <Filter>src\Yortek\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="src\Yortek\Rendering\Framebuffer.cpp">
@@ -261,5 +264,6 @@
     <ClCompile Include="src\Yortek\Scene\Ref.cpp" />
     <ClCompile Include="src\Yortek\Scene\ComponentPool.cpp" />
     <ClCompile Include="src\Yortek\Scene\JobScheduler.cpp" />
+    <ClCompile Include="src\Yortek\Jobs\Scene2DRenderJob.cpp" />
   </ItemGroup>
 </Project>

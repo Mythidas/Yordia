@@ -8,6 +8,7 @@
 namespace Yortek
 {
   Event<> Application::ev_OnUpdate;
+  Event<int, int> Application::ev_OnResize;
 
   bool Application::s_running{ false };
   Unique<Window> Application::s_window{ nullptr };
@@ -27,6 +28,7 @@ namespace Yortek
     // create Window
     s_window = specs.window.build();
     s_window->ev_OnWindowClose += _on_close;
+    s_window->ev_OnWindowResize += ev_OnResize;
 
     // init rendering
     Rendering::Renderer2D::_construct();

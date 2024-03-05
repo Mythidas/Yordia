@@ -1,10 +1,9 @@
-#include "Yortek/Math/Transform.h"
-#include "Yortek/Math/Vector3.h"
+#include "Yortek/Components/Transform.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/quaternion.hpp>
 
-namespace Yortek::Math
+namespace Yortek::Components
 {
   namespace Utils
   {

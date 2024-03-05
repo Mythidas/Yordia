@@ -4,7 +4,7 @@
 #include "Yortek/Rendering/RenderBuffer.h"
 #include "Yortek/Rendering/Framebuffer.h"
 #include "Yortek/Rendering/Image.h"
-#include "Yortek/Rendering/Camera.h"
+#include "Yortek/Rendering/CameraInfo.h"
 #include "Yortek/Math/include.h"
 
 namespace Yortek::Rendering
@@ -38,7 +38,7 @@ namespace Yortek::Rendering
 		Vector4 vertex_positions[4]{};
 		Vector2 texture_positions[4]{};
 
-		Camera* camera;
+		CameraInfo* camera;
 		struct CameraBuffer
 		{
 			glm::mat4 view{ 1.0f };

@@ -92,12 +92,12 @@ namespace Yortek::Rendering
 		delete[] s_quad_data.staging_buffer;
 	}
 
-	void Renderer2D::begin_frame(Camera& camera, const Transform& transform)
+	void Renderer2D::begin_frame(CameraInfo& camera, const Components::Transform& transform)
 	{
 		if (!_validate_api()) return;
 
 		s_quad_data.camera = &camera;
-		Transform transformCopy(transform);
+		Components::Transform transformCopy(transform);
 		transformCopy.position.y *= -1;
 		transformCopy.position.z *= -1;
 

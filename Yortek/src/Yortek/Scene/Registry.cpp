@@ -38,6 +38,12 @@ namespace Yortek::Scene
     m_id_to_index.erase(ent.id);
   }
 
+  Entity Registry::find_ent(const UUID& uuid)
+  {
+    if (!_is_valid_entity(uuid)) return Entity();
+    return m_entities[m_id_to_index[uuid]];
+  }
+
   void Registry::on_update()
   {
     JobScheduler::instance().dispatch_jobs(*this);
@@ -90,7 +96,12 @@ namespace Yortek::Scene
 
   bool Registry::_is_valid_entity(const Entity& ent)
   {
-    return ent.id.valid() && m_id_to_index.contains(ent.id);
+    return _is_valid_entity(ent.id);
+  }
+
+  bool Registry::_is_valid_entity(const UUID& ent)
+  {
+    return ent.valid() && m_id_to_index.contains(ent);
   }
 
   size_t Registry::_find_pool_id(const TypeID& component)

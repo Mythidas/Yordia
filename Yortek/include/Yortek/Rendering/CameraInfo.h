@@ -15,10 +15,10 @@ namespace Yortek::Rendering
     Orthographic
   };
 
-  struct Camera
+  struct CameraInfo
   {
   public:
-    Camera(int width, int height);
+    CameraInfo();
 
     Color clear_color{ 1.0f, 1.0f, 1.0f, 1.0f };
     CameraMode mode{ CameraMode::Perspective };

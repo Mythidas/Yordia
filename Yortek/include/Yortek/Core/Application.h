@@ -15,6 +15,7 @@ namespace Yortek
 
   public:
     static Event<> ev_OnUpdate;
+    static Event<int, int> ev_OnResize;
 
     struct Specs
     {

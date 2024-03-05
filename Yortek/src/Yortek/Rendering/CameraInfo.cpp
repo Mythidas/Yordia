@@ -1,20 +1,19 @@
-#include "Yortek/Rendering/Camera.h"
-#include "Yortek/Core/Application.h"
+#include "Yortek/Rendering/CameraInfo.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace Yortek::Rendering
 {
-  Camera::Camera(int width, int height)
+  CameraInfo::CameraInfo()
   {
     m_framebuffer = Framebuffer::Builder()
-      .set_size({ width, height })
+      .set_size({ 200, 200 })
       .build();
 
-    resize(width, height);
+    resize(200, 200);
   }
 
-  void Camera::resize(int width, int height)
+  void CameraInfo::resize(int width, int height)
   {
     if (width <= 0 || height <= 0) return;
 

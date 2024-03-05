@@ -13,7 +13,7 @@ namespace Yortek::Scene
   class Entity
   {
   public:
-    UUID id;
+    UUID id{ UUID::INVALID };
     ComponentMask components;
   };
 }

@@ -5,9 +5,10 @@
 #include "Yortek/Rendering/Image.h"
 #include "Yortek/Rendering/Framebuffer.h"
 #include "Yortek/Rendering/RenderData.h"
-#include "Yortek/Rendering/Camera.h"
+#include "Yortek/Rendering/CameraInfo.h"
 #include "Yortek/Rendering/Color.h"
 #include "Yortek/Rendering/RenderCommands.h"
+#include "Yortek/Components/Transform.h"
 
 namespace Yortek::Rendering
 {
@@ -16,7 +17,7 @@ namespace Yortek::Rendering
 	class Renderer2D
 	{
 	public:
-		static void begin_frame(Camera& camera, const Transform& transform);
+		static void begin_frame(CameraInfo& camera, const Components::Transform& transform);
 		static void end_frame();
 
 		static void draw_quad(const Vector3& position, const Vector3& rotation, const Vector3& scale, const Color& color);

@@ -7,7 +7,7 @@ namespace Yortek::Scene
   {
     for (auto& job : m_jobs)
     {
-      job->on_update(registry);
+      job.second->on_update(registry);
     }
   }
 }

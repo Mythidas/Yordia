@@ -17,6 +17,7 @@ namespace Yortek::Scene
 
     Entity create_ent(std::string name = "Empty Entity");
     void destroy_ent(const Entity& ent);
+    Entity find_ent(const UUID& uuid);
 
     void on_update();
 
@@ -101,6 +102,7 @@ namespace Yortek::Scene
 
   private:
     bool _is_valid_entity(const Entity& ent);
+    bool _is_valid_entity(const UUID& ent);
     size_t _find_pool_id(const TypeID& component);
 
   private:
@@ -120,14 +122,14 @@ namespace Yortek::Scene
     }
 
     T* comp = new (add_component(Reflection::Type<T>().id(), sizeof(T), ent)) T();
-    return Ref<T>(ent.id, comp);
+    return Ref<T>(ent.id, comp, this);
   }
 
   template<typename T>
   inline Ref<T> Registry::get_component(const Entity& ent)
   {
     T* comp = static_cast<T*>(get_component(Reflection::Type<T>().id(), ent));
-    return Ref<T>(ent.id, comp);
+    return Ref<T>(ent.id, comp, this);
   }
 
   template<typename T>
