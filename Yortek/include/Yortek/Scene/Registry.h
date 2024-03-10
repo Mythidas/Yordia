@@ -35,6 +35,18 @@ namespace Yortek::Scene
     template <typename T>
     void remove_component(const Entity& ent);
 
+    void* get_behavior(const TypeID& id, const Entity& ent);
+    bool has_behavior(const TypeID& id, const Entity& ent);
+
+    template <typename T>
+    Ref<T> add_behavior(const Entity& ent);
+    template <typename T>
+    Ref<T> get_behavior(const Entity& ent);
+    template <typename T>
+    bool has_behavior(const Entity& ent);
+    template <typename T>
+    void remove_behavior(const Entity& ent);
+
   public:
     template <typename ...Components>
     struct View
@@ -110,24 +122,31 @@ namespace Yortek::Scene
     size_t m_entity_counter = 0;
     std::vector<size_t> m_free_entity_indices;
     std::unordered_map<UUID, size_t> m_id_to_index;
-    std::unordered_map<TypeID, ComponentPool*> m_pools;
+    std::unordered_map<TypeID, ComponentPool*> m_comp_pools;
+    std::unordered_map<UUID, std::unordered_map<TypeID, Behavior*>> m_behaviors;
   };
 
   template<typename T>
   inline Ref<T> Registry::add_component(const Entity& ent)
   {
+    static_assert(std::is_base_of_v<Component, T>, "T is not derived from Component!");
+    static_assert(!std::is_base_of_v<Behavior, T>, "T cannot be a Behavior!");
+
     if (has_component<T>(ent))
     {
       return get_component<T>(ent);
     }
 
     T* comp = new (add_component(Reflection::Type<T>().id(), sizeof(T), ent)) T();
+    static_cast<Component*>(comp)->m_entity = ent;
+    static_cast<Component*>(comp)->m_registry = this;
     return Ref<T>(ent.id, comp, this);
   }
 
   template<typename T>
   inline Ref<T> Registry::get_component(const Entity& ent)
   {
+    static_assert(std::is_base_of_v<Component, T>, "T is not derived from Component!");
     T* comp = static_cast<T*>(get_component(Reflection::Type<T>().id(), ent));
     return Ref<T>(ent.id, comp, this);
   }
@@ -135,19 +154,70 @@ namespace Yortek::Scene
   template<typename T>
   inline bool Registry::has_component(const Entity& ent)
   {
+    static_assert(std::is_base_of_v<Component, T>, "T is not derived from Component!");
     return has_component(Reflection::Type<T>().id(), ent);
   }
 
   template<typename T>
   inline void Registry::remove_component(const Entity& ent)
   {
+    static_assert(std::is_base_of_v<Component, T>, "T is not derived from Component!");
     remove_component(Reflection::Type<T>().id(), ent);
+  }
+
+  template<typename T>
+  inline Ref<T> Registry::add_behavior(const Entity& ent)
+  {
+    static_assert(std::is_base_of_v<Behavior, T>, "T is not derived from Behavior!");
+    if (!_is_valid_entity(ent)) return Ref<T>();
+
+    if (has_behavior<T>(ent))
+    {
+      return get_behavior<T>(ent);
+    }
+
+    m_behaviors[ent.id][Reflection::Type<T>().id()] = new T();
+    static_cast<Component*>(m_behaviors[ent.id][Reflection::Type<T>().id()])->m_entity = ent;
+    static_cast<Component*>(m_behaviors[ent.id][Reflection::Type<T>().id()])->m_registry = this;
+    m_behaviors[ent.id][Reflection::Type<T>().id()]->on_attach();
+    return Ref<T>(ent.id, static_cast<T*>(m_behaviors[ent.id][Reflection::Type<T>().id()]), this);
+  }
+
+  template<typename T>
+  inline Ref<T> Registry::get_behavior(const Entity& ent)
+  {
+    static_assert(std::is_base_of_v<Behavior, T>, "T is not derived from Behavior!");
+    if (!_is_valid_entity(ent)) return Ref<T>();
+
+    T* comp = static_cast<T*>(m_behaviors[ent.id][Reflection::Type<T>().id()]);
+    return Ref<T>(ent.id, comp, this);
+  }
+
+  template<typename T>
+  inline bool Registry::has_behavior(const Entity& ent)
+  {
+    static_assert(std::is_base_of_v<Behavior, T>, "T is not derived from Behavior!");
+    if (!_is_valid_entity(ent)) return false;
+    return m_behaviors[ent.id].contains(Reflection::Type<T>().id());
+  }
+
+  template<typename T>
+  inline void Registry::remove_behavior(const Entity& ent)
+  {
+    static_assert(std::is_base_of_v<Behavior, T>, "T is not derived from Behavior!");
+    if (!_is_valid_entity(ent)) return;
+
+    m_behaviors[ent.id][Reflection::Type<T>().id()]->on_detach();
+    delete m_behaviors[ent.id][Reflection::Type<T>().id()];
+    m_behaviors[ent.id].erase(Reflection::Type<T>().id());
   }
 
   template<typename ...Components>
   inline Registry::View<Components...>::View(Registry& reg)
     : m_reg(reg)
   {
+    // TODO: Figure out if we can use static assert to make sure we are entering correct types
+    
     if (sizeof...(Components) <= 0)
     {
       m_all = true;

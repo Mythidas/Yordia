@@ -181,6 +181,7 @@
     <ClInclude Include="include\Yortek\Rendering\RenderData.h" />
     <ClInclude Include="include\Yortek\Rendering\Renderer2D.h" />
     <ClInclude Include="include\Yortek\Rendering\Shader.h" />
+    <ClInclude Include="include\Yortek\Scene\Behaviour.h" />
     <ClInclude Include="include\Yortek\Scene\Component.h" />
     <ClInclude Include="include\Yortek\Scene\ComponentPool.h" />
     <ClInclude Include="include\Yortek\Scene\Entity.h" />

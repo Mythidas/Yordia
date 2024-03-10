@@ -98,10 +98,9 @@ namespace Yortek::Rendering
 
 		s_quad_data.camera = &camera;
 		Components::Transform transformCopy(transform);
-		transformCopy.position.y *= -1;
 		transformCopy.position.z *= -1;
 
-		s_quad_data.camera_buffer.view = transformCopy.get_inverse_matrix();
+		s_quad_data.camera_buffer.view = transformCopy.get_inverse_matrix() * glm::rotate(glm::mat4(1.0f), glm::radians(180.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 		s_quad_data.camera_buffer.projection = camera.get_projection();
 		s_quad_data.camera_uniform->set_data(&s_quad_data.camera_buffer, sizeof(RenderData::CameraBuffer), 0);
 

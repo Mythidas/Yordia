@@ -192,6 +192,7 @@
     <ClInclude Include="include\Yortek\Components\SpriteRenderer.h" />
     <ClInclude Include="include\Yortek\Jobs\Scene2DRenderJob.h" />
     <ClInclude Include="include\Yortek\Components\Camera.h" />
+    <ClInclude Include="include\Yortek\Scene\Behaviour.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\OpenGL\OGL_Framebuffer.cpp">

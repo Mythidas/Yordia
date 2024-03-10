@@ -17,24 +17,33 @@ using namespace Yortek;
 
 Yortek::Scene::Registry registry;
 
-class PosJob : public Scene::IJob
+class CharacterController : public Scene::Behavior
 {
 public:
-  virtual void on_update(Scene::Registry& registry)
-  {
-    if (Yortek::Input::is_key_pressed(Yortek::KeyCode::W))
-    {
-      for (auto ent : registry.get_view<Components::Transform>())
-      {
-        if (registry.has_component<Components::Camera>(ent)) continue;
+  Scene::Ref<Components::Transform> pos;
 
-        auto pos = registry.get_component<Components::Transform>(ent);
-        pos->position.x += 3.0f * Time::get_delta_time();
-      }
-    }
+  virtual void on_attach() override
+  {
+    pos = get_registry().get_component<Components::Transform>(get_entity());
+  }
+
+  virtual void on_update() override
+  {
+    if (!pos) return;
+
+    if (Yortek::Input::is_key_pressed(Yortek::KeyCode::W))
+      pos->position.y += 3.0f * Time::get_delta_time();
+
+    if (Yortek::Input::is_key_pressed(Yortek::KeyCode::S))
+      pos->position.y -= 3.0f * Time::get_delta_time();
+
+    if (Yortek::Input::is_key_pressed(Yortek::KeyCode::A))
+      pos->position.x -= 3.0f * Time::get_delta_time();
+
+    if (Yortek::Input::is_key_pressed(Yortek::KeyCode::D))
+      pos->position.x += 3.0f * Time::get_delta_time();
   }
 };
-YOR_REGISTER_JOB(PosJob)
 
 Scene::Entity spriteEnt;
 Scene::Ref<Components::Transform> spriteTrans;
@@ -77,6 +86,7 @@ int main()
   spriteEnt = registry.create_ent();
   spriteTrans = registry.add_component<Components::Transform>(spriteEnt);
   sprite = registry.add_component<Components::SpriteRenderer>(spriteEnt);
+  registry.add_behavior<CharacterController>(spriteEnt);
 
   cameraEnt = registry.create_ent();
   cameraTrans = registry.add_component<Components::Transform>(cameraEnt);

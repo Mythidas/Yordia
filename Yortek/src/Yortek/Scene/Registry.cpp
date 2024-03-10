@@ -6,7 +6,7 @@ namespace Yortek::Scene
 {
   Registry::~Registry()
   {
-    m_pools.clear();
+    m_comp_pools.clear();
   }
 
   Entity Registry::create_ent(std::string name)
@@ -47,31 +47,42 @@ namespace Yortek::Scene
   void Registry::on_update()
   {
     JobScheduler::instance().dispatch_jobs(*this);
+
+    for (auto& index : m_id_to_index)
+    {
+      if (_is_valid_entity(m_entities[index.second]))
+      {
+        for (auto& behavior : m_behaviors[m_entities[index.second].id])
+        {
+          behavior.second->on_update();
+        }
+      }
+    }
   }
 
   void* Registry::add_component(const TypeID& id, const size_t& size, const Entity& ent)
   {
     if (!_is_valid_entity(ent)) return nullptr;
 
-    if (m_pools.size() >= MAX_COMPONENTS)
+    if (m_comp_pools.size() >= MAX_COMPONENTS)
       return nullptr;
 
-    if (!m_pools.contains(id))
+    if (!m_comp_pools.contains(id))
     {
-      m_pools[id] = new ComponentPool(size, m_pools.size());
+      m_comp_pools[id] = new ComponentPool(size, m_comp_pools.size());
     }
 
-    m_entities[m_id_to_index[ent.id]].components.set(m_pools[id]->get_mask_id());
-    return m_pools[id]->get_data(m_id_to_index[ent.id]);;
+    m_entities[m_id_to_index[ent.id]].components.set(m_comp_pools[id]->get_mask_id());
+    return m_comp_pools[id]->get_data(m_id_to_index[ent.id]);
   }
 
   void* Registry::get_component(const TypeID& id, const Entity& ent)
   {
     if (!_is_valid_entity(ent)) return nullptr;
-    if (!m_pools.contains(id)) return nullptr;
+    if (!m_comp_pools.contains(id)) return nullptr;
 
-    if (m_entities[m_id_to_index[ent.id]].components.test(m_pools[id]->get_mask_id()))
-      return m_pools[id]->get_data(m_id_to_index[ent.id]);
+    if (m_entities[m_id_to_index[ent.id]].components.test(m_comp_pools[id]->get_mask_id()))
+      return m_comp_pools[id]->get_data(m_id_to_index[ent.id]);
 
     return nullptr;
   }
@@ -79,9 +90,9 @@ namespace Yortek::Scene
   bool Registry::has_component(const TypeID& id, const Entity& ent)
   {
     if (!_is_valid_entity(ent)) return false;
-    if (!m_pools.contains(id)) return false;
+    if (!m_comp_pools.contains(id)) return false;
 
-    if (m_entities[m_id_to_index[ent.id]].components.test(m_pools[id]->get_mask_id()))
+    if (m_entities[m_id_to_index[ent.id]].components.test(m_comp_pools[id]->get_mask_id()))
       return true;
 
     return false;
@@ -90,8 +101,20 @@ namespace Yortek::Scene
   void Registry::remove_component(const TypeID& id, const Entity& ent)
   {
     if (!_is_valid_entity(ent)) return;
-    if (!m_pools.contains(id)) return;
-    m_entities[m_id_to_index[ent.id]].components.reset(m_pools[id]->get_mask_id());
+    if (!m_comp_pools.contains(id)) return;
+    m_entities[m_id_to_index[ent.id]].components.reset(m_comp_pools[id]->get_mask_id());
+  }
+
+  void* Registry::get_behavior(const TypeID& id, const Entity& ent)
+  {
+    if (!_is_valid_entity(ent)) return nullptr;
+    return m_behaviors[ent.id][id];
+  }
+
+  bool Registry::has_behavior(const TypeID& id, const Entity& ent)
+  {
+    if (!_is_valid_entity(ent)) return false;
+    return m_behaviors[ent.id].contains(id);
   }
 
   bool Registry::_is_valid_entity(const Entity& ent)
@@ -106,8 +129,8 @@ namespace Yortek::Scene
 
   size_t Registry::_find_pool_id(const TypeID& component)
   {
-    if (m_pools.contains(component))
-      return m_pools[component]->get_mask_id();
+    if (m_comp_pools.contains(component))
+      return m_comp_pools[component]->get_mask_id();
 
     return INVALID_TYPE;
   }
